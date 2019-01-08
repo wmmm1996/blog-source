@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
+title: gcdd' blog
+subtitle: "梦想总是要有的，万一实现了呢"
+description: 温故而知新
 keywords:
-author: John Doe
-language:
+author: gcdd
+language: zh-Hans
 timezone:
 
 # URL
