@@ -1,11 +1,9 @@
 ---
 title: 面试题-JAVA基本功
+date: 2019-01-08 12:32:00
 tags:
   - JAVA
   - 面试
-categories:
-  - JAVA
-date: 2019-01-08 12:32:00
 ---
 俗话说，温故而知新，可以为师矣。任何一项工作，都离不开扎实的基础。而扎实的基础，就需要不停的拿出来温习。<!-- more -->
 
@@ -314,6 +312,14 @@ finally {
 
 # Q12.MVC设计思想
 
-MVC指的就是Model-View-Controller（模型－视图－控制器）
+MVC指的就是Model-View-Controller（模型－视图－控制器）,可以参考springmvc。
 
-## 代码
+# Q13.equals与==的区别
+
+## 1.基本数据类型，也称原始数据类型。
+
+`byte,short,char,int,long,float,double,boolean`
+他们之间的比较，应用双等号==,比较的是他们的值。
+
+## 2.复合数据类型(类)
+当他们用（==）进行比较的时候，比较的是他们在内存中的存放地址，所以，除非是同一个new出来的对象，他们的比较后的结果为true，否则比较后结果为false。

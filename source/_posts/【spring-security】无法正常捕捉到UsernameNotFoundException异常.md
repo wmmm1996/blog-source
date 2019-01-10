@@ -1,10 +1,9 @@
 ---
-title: 记一次spring-security填坑经过
+title: 【spring-security】无法正常捕捉到UsernameNotFoundException异常
 date: 2019-01-08 21:25:54
 tags:
   - 实践经验
-categories:
-  - JAVA
+  - spring-security
 ---
 # 前言
 
@@ -88,16 +87,16 @@ try {
 ### 在上述代码中，如果用户名错误，应该执行
 
 ```java
-catch (BadCredentialsException e) {
-    return forbidden(LOGIN_PASSWORD_ERROR, request);
+catch (UsernameNotFoundException e) {
+    return forbidden(LOGIN_USERNAME_ERROR, request);
 }
 ```
 
 ### 如果密码错误，应该执行
 
 ```java
-catch (UsernameNotFoundException e) {
-    return forbidden(LOGIN_USERNAME_ERROR, request);
+catch (BadCredentialsException e) {
+    return forbidden(LOGIN_PASSWORD_ERROR, request);
 }
 ```
 
