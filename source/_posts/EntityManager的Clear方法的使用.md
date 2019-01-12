@@ -95,8 +95,6 @@ public class QuestionWeightsCopy implements IWeightsValue {
 
 到这就好了，数据库已经保存了关联关系。但是，这时候如果返回save好的templateCopy，subDomainWeights和questionWeights将会是null。
 
-为什么数据库实际已经保存好了，但是返回的确实未保存的呢？
-
 # 问题解决
 
 ## 使用EntityManager的clear方法

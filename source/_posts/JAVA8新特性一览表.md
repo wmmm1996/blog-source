@@ -7,19 +7,18 @@ tags:
 
 # 总览
 
-- forEach() method in Iterable interface
-- default and static methods in Interfaces
-- Functional Interfaces and Lambda Expressions
-- Java Stream API for Bulk Data Operations on Collections
+- forEach() method in Iterable interface(Iterable接口中的forEach()方法)
+- default and static methods in Interfaces(接口中的默认和静态方法)
+- Functional Interfaces and Lambda Expressions(function接口和Lambda表达式)
+- Java Stream API for Bulk Data Operations on Collections(用于集合上的批量数据操作的Java Stream API)
 - Java Time API
 - Collection API improvements
 - Concurrency API improvements
 - Java IO improvements
-- Miscellaneous Core API improvements
 
 <!-- more -->
 
-#  1.forEach() method in Iterable interface(Iterable接口中的forEach（）方法)
+#  1.forEach() method in Iterable interface(Iterable接口中的forEach()方法)
 
 每当我们需要遍历Collection时，我们需要创建一个Iterator，其目的是迭代，然后我们在循环中为Collection中的每个元素提供业务逻辑。如果没有正确使用迭代器，会抛出异常ConcurrentModificationException。
 
@@ -66,7 +65,57 @@ default void forEach(Consumer<? super Taction) {
 }
 ```
 
-静态方法与类的静态方法类似，只能通过类名.方法名调用
+## 示例代码
+
+创建一个接口
+
+```java
+public interface MyInterface {
+
+    void show();
+
+    default void showA() {
+        System.out.println("我是接口默认方法");
+    }
+
+    static void showB() {
+        System.out.println("我是接口静态方法");
+    }
+}
+```
+
+创建该接口实现类
+
+```java
+public class MyClass implements MyInterface {
+    @Override
+    public void show() {
+        System.out.println("我是实现方法");
+    }
+
+    //默认方法支持重写,不覆盖则执行接口的默认方法
+    @Override
+    public void showA() {
+        System.out.println("我覆盖了接口的默认方法");
+    }
+
+    //静态方法不可以重写
+}
+```
+
+测试
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        MyClass myClass = new MyClass();
+        myClass.show();
+        myClass.showA();
+        //通过类名.方法名调用接口静态方法
+        MyInterface.showB();
+    }
+}
+```
 
 ```java
 static void test() {
@@ -180,6 +229,8 @@ System.out.println(binaryOperator.apply(100,200));
 ```
 
 # 4.Java Stream API for Bulk Data Operations on Collections(用于集合上的批量数据操作的Java Stream API)
+
+[Java 8 中的 Streams API 详解](https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/index.html "Java 8 中的 Streams API 详解")
 
 以下是示例代码
 
@@ -333,6 +384,294 @@ System.out.println("Duration in hours: " + duration.toHours());
 Duration in days: 365
 Duration in hours: 8783
 ```
+
+# Collection API improvements(集合API改进)
+
+上面已经展示了forEach()方法和Stream API在集合上的使用。java8的Collection API中添加了一些新方法：
+
+## Iterator default method forEachRemaining(Consumer action) 
+
+为每个元素执行给定操作，直到所有元素都已处理或操作引发异常。
+
+### 源码
+
+```java
+default void forEachRemaining(Consumer<? super E> action) {
+	//传入一个非空消费者
+    Objects.requireNonNull(action);
+	//遍历执行消费者函数
+    while (hasNext())
+        action.accept(next());
+}
+```
+
+### 示例代码
+
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+Iterator<Integer> iterator = list.iterator();
+//创建一个消费者
+Consumer<Integer> consumer = i -> System.out.println("consumer print " + i);
+//iterator的forEachRemaining将集合中的每个元素消费
+iterator.forEachRemaining(consumer);
+```
+
+### 控制台输出
+
+```java
+consumer print 1
+consumer print 2
+consumer print 3
+...
+```
+
+## Collection default method removeIf(Predicate filter)
+
+删除满足给定条件的此集合的所有元素。
+
+### 源码
+
+```java
+default boolean removeIf(Predicate<? super E> filter) {
+	//传入一个非空谓语
+    Objects.requireNonNull(filter);
+    boolean removed = false;
+    final Iterator<E> each = iterator();
+    while (each.hasNext()) {
+		//遍历元素，执行谓语的校验，如果为真，则删除该元素
+        if (filter.test(each.next())) {
+            each.remove();
+            removed = true;
+        }
+    }
+    return removed;
+}
+```
+
+### 示例代码
+
+```java
+List<Integer> list = new ArrayList<>();
+list.add(1);
+list.add(2);
+list.add(3);
+list.add(4);
+Predicate<Integer> predicate = i -> i > 1;
+list.removeIf(predicate);
+System.out.println("remove if left items : " + list);
+```
+
+### 控制台输出
+
+```java
+//2,3,4满足条件被删除了
+remove if left items : [1]
+```
+
+## Collection spliterator()
+
+返回Spliterator实例的方法，该实例可用于顺序或并行遍历元素。
+
+### 源码
+
+```java
+//该方法是接口默认方法
+default Spliterator<E> spliterator() {
+    return Spliterators.spliterator(this, Spliterator.ORDERED);
+}
+```
+
+### 示例代码
+
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+Spliterator<Integer> spliterator = list.spliterator();
+//创建顺序流
+Stream<Integer> stream = StreamSupport.stream(spliterator, false);
+//创建并行流
+Stream<Integer> parallelStream = StreamSupport.stream(spliterator, true);
+```
+
+## Map replaceAll(), compute(), merge() methods
+
+### replaceAll()
+
+替换Map中所有Entry的value值，这个值由旧的key和value计算得出，接收参数 (K, V) -> V
+
+#### 源码
+
+```java
+public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
+    Node<K,V>[] tab;
+    if (function == null)
+        throw new NullPointerException();
+    if (size > 0 && (tab = table) != null) {
+        int mc = modCount;
+        for (int i = 0; i < tab.length; ++i) {
+            for (Node<K,V> e = tab[i]; e != null; e = e.next) {
+				//使用给定的函数替换原来的value值，key不变
+                e.value = function.apply(e.key, e.value);
+            }
+        }
+        if (modCount != mc)
+            throw new ConcurrentModificationException();
+    }
+}
+```
+
+#### 示例代码
+
+```java
+Map<String, String> map = new HashMap<>();
+map.put("1", "A");
+map.put("2", "B");
+map.put("3", "C");
+map.put("4", "D");
+map.put("5", "E");
+//replaceAll方法
+map.replaceAll((s, s2) -> s + s2);
+System.out.println(map);
+```
+
+#### 控制台输出
+
+```java
+//原来的value由key + value替换掉了
+{1=1A, 2=2B, 3=3C, 4=4D, 5=5E}
+```
+
+### compute()
+
+是`computeIfPresent`和`computeIfAbsent`方法的组合体
+
+- computeIfPresent:如果指定的key不存在，则通过指定的K -> V计算出新的值设置为key的值。
+- computeIfPresent:如果指定的key存在，则根据旧的key和value计算新的值newValue, 如果newValue不为null，则设置key新的值为newValue, 如果newValue为null, 则删除该key的值。
+
+#### 示例代码
+
+```java
+Map<String, String> map = new HashMap<>();
+map.put("1", "A");
+map.put("2", "B");
+map.put("3", "C");
+map.put("4", "D");
+map.put("5", "E");
+//key存在，根据旧的key和value计算新的值newValue
+map.compute("1", (k, v) -> v + " computed");
+System.out.println("key存在" + map.get("1"));
+//key不存在，通过指定的K -> V计算出新的值设置为key的值
+map.compute("6", (k, v) -> "F");
+System.out.println("key不存在" + map.get("6"));
+//key存在，如果newValue为null, 则删除该key的值
+map.compute("1", (k, v) -> null);
+System.out.println("key存在，设置为null " + map.get("1"));
+```
+
+#### 控制台输出
+
+```java
+key存在A computed
+key不存在F
+key存在，设置为null null
+```
+
+### merge()
+
+如果指定的key不存在，则设置指定的value值，否则根据key的旧的值oldvalue，value计算出新的值newValue, 如果newValue为null, 则删除该key，否则设置key的新值newValue。
+
+#### 示例代码
+
+```java
+Map<String, String> map = new HashMap<>();
+map.put("1", "A");
+map.put("2", "B");
+map.put("3", "C");
+map.put("4", "D");
+map.put("5", "E");
+//存在key为1,输出 Amerge
+System.out.println(map.merge("1", "merge", (k, v) -> k + v));
+//新值为null，删除key，输出 null
+System.out.println(map.merge("1", "merge", (k, v) -> null));
+//不存在key为6，输出 "merge"
+System.out.println(map.merge("6", "merge", (k, v) -> k + v));
+```
+
+#### 控制台输出
+
+```java
+Amerge
+null
+merge
+```
+## Performance Improvement for HashMap class with Key Collisions
+
+具有键冲突的HashMap类的性能改进
+
+# Concurrency API improvements(并发API改进)
+
+## ConcurrentHashMap
+
+JDK8提供的并发友好的HashMap
+
+## CompletableFuture
+
+提供了非常强大的 Future 的扩展功能，可以帮助我们简化异步编程的复杂性，并且提供了函数式编程的能力，可以通过回调的方式处理计算结果，也提供了转换和组合 CompletableFuture 的方法。
+
+## Executors newWorkStealingPool()
+
+创建持有足够线程的线程池来支持给定的并行级别，并通过使用多个队列，减少竞争，它需要传一个并行级别的参数，如果不传，则被设定为默认的CPU数量。
+
+# Java IO improvements(Java IO API的改进)
+
+## Files.list(Path dir)
+
+返回一个延迟填充的Stream，其中的元素是目录中的条目。
+
+```java
+//返回目录下的元素集合流
+Stream<Path> list = Files.list(new File("C:\\Users\\Administrator\\Desktop").toPath());
+list.forEach(System.out::println);
+```
+
+## Files.lines(Path path)
+
+从文件中读取所有行作为流。
+
+```java
+//返回文件中的所有行数
+Stream<String> lines = Files.lines(new File("C:\\Users\\Administrator\\Desktop\\new 3.txt").toPath());
+lines.forEach(System.out::println);
+```
+
+## Files.find()
+
+通过搜索以给定起始文件为根的文件树中的文件，返回使用Path延迟填充的Stream。
+
+```java
+//返回符合判断条件的Path流
+Stream<Path> stream = Files.find(new File("C:\\Users\\Administrator\\Desktop").toPath(),
+        1,
+        (path, basicFileAttributes) -> basicFileAttributes.isDirectory());
+stream.forEach(System.out::println);
+```
+
+## BufferedReader.lines()
+
+返回一个Stream，其元素是从这个BufferedReader读取的行。
+
+```java
+//返回文件中的所有行数,类似Files.lines()
+BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Administrator\\Desktop\\new 3.txt"));
+Stream<String> stringStream = br.lines();
+stringStream.forEach(System.out::println);
+```
+
+
+# 参考资源
+
+- [Java 8 Features with Examples](https://www.journaldev.com/2389/java-8-features-with-examples#java8-collection)
+- [为并发而生的 ConcurrentHashMap（Java 8）](https://www.cnblogs.com/yangming1996/p/8031199.html)
+- [通过实例理解 JDK8 的 CompletableFuture](https://www.ibm.com/developerworks/cn/java/j-cf-of-jdk8/index.html)
 
 
 
