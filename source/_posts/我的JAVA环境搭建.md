@@ -25,7 +25,11 @@ tags:
 
 # 软件配置
 
-## IntelliJ IDEA配置
+## IntelliJ IDEA
+
+### 破解
+
+[IntelliJ IDEA 注册码](http://idea.lanyus.com/)
 
 ### 主题
 
@@ -88,6 +92,12 @@ tags:
  - HighlightBracketPair:自动化高亮显示光标所在代码块对应的括号，可以定制颜色和形状，再也不怕看代码看到眼花了
  - Rainbow Brackets:彩色显示所有括号,有点类似上一个
  - Alibaba Java Coding Guidelines:阿里巴巴Java开发手册配套插件，一键扫描帮你优化代码。
+
+## Navicat
+
+### 破解
+
+[Navicat Premium 12.0.18 / 12.0.24安装与激活](https://www.jianshu.com/p/42a33b0dda9c)
 
 # 参考资料
 
