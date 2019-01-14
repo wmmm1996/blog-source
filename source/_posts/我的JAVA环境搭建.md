@@ -83,6 +83,10 @@ tags:
  */
  ```
  
+ ### IntelliJ IDEA启动设置不默认打开前一个项目
+ 
+ ![](https://i.loli.net/2019/01/14/5c3be5127420c.png)
+ 
  ### IntelliJ IDEA常用插件
  
  - .ignore:自动生成.ignore文件，并支持一键添加文件到.ignore列表
