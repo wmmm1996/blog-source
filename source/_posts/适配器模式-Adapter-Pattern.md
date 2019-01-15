@@ -90,7 +90,7 @@ public class FileMonitor extends FileAlterationListenerAdaptor {
 
 ### UML类图
 
-![](/适配器模式-Adapter-Pattern/20190115053426750.png)
+![](https://i.imgur.com/9iriQ74.png)
 
 ### 代码示例
 
