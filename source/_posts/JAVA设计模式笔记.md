@@ -19,13 +19,15 @@ tags:
 
 # 六个创建型模式
 
-- [简单工厂模式-Simple Factory Pattern](2019/01/15/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-Simple-Factory-Pattern/)
-- [工厂方法模式-Factory Method Pattern](2019/01/15/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-Method-Pattern/)
-- [抽象工厂模式-Abstract Factory Pattern](2019/01/15/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-Abstract-Factory-Pattern/)
-- [单例模式-Singleton Pattern](2019/01/15/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern/)
-- [原型模式-Prototype Pattern](2019/01/15/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-Prototype-Pattern/)
+- [简单工厂模式-Simple Factory Pattern](https://gcdd1993.github.io/2019/01/15/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-Simple-Factory-Pattern/)
+- [工厂方法模式-Factory Method Pattern](https://gcdd1993.github.io/2019/01/15/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-Method-Pattern/)
+- [抽象工厂模式-Abstract Factory Pattern](https://gcdd1993.github.io/2019/01/15/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-Abstract-Factory-Pattern/)
+- [单例模式-Singleton Pattern](https://gcdd1993.github.io/2019/01/15/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern/)
+- [原型模式-Prototype Pattern](https://gcdd1993.github.io/2019/01/15/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-Prototype-Pattern/)
 
-![](http://plcr2zhhq.bkt.clouddn.comJAVA设计模式笔记/20190115110752230.png)
+![](https://i.loli.net/2019/01/15/5c3d883570007.png)
+
+
 
 
 

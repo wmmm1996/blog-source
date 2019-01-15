@@ -86,5 +86,5 @@ search:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://gcdd1993:1123lovewm@github.com/gcdd1993/gcdd1993.github.io.git
+  repository: https://GH_TOKEN@github.com/gcdd1993/gcdd1993.github.io.git
   branch: master
