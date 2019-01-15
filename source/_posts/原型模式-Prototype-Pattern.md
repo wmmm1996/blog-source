@@ -70,7 +70,7 @@ public class Client {
 
 输出结果:
 
-```java
+```
 obj1 和 obj2 是同一个对象吗? false
 Sunny
 ```
@@ -124,7 +124,7 @@ public class Client {
 
 输出结果:
 
-```java
+```
 obj1 和 obj2 是同一个对象吗? false
 ```
 

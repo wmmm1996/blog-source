@@ -97,7 +97,7 @@ public class Test {
 
 输出结果:
 
-```java
+```
 生产出了产品A
 生产出了产品B
 ```

@@ -85,7 +85,7 @@ public class Client {
 
 输出结果:
 
-```java
+```
 工厂 创建了产品对象：ConcreteProductA
 工厂 创建了产品对象：ConcreteProductC
 工厂 创建了产品对象：ConcreteProductB

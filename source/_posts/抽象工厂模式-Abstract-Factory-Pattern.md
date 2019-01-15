@@ -123,7 +123,7 @@ public class Test {
 
 输出结果:
 
-```java
+```
 产品A1的use方法
 产品B1的eat方法
 产品A2的use方法

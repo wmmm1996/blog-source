@@ -40,7 +40,7 @@ public class FeignConfiguration {
 
 在application.yml中添加ribbon的超时时间设置：
 
-```java
+```yaml
 ribbon:  
   ReadTimeout: 3000
   ConnectTimeout: 3000

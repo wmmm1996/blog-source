@@ -69,7 +69,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
 ## 3. 登录接口
 
-```java
+```
 try {
     final JwtAuthenticationResponse jsonResponse = authService.login(authenticationRequest.getUsername(), authenticationRequest.getPassword());
     //存入redis
@@ -86,7 +86,7 @@ try {
 
 ### 在上述代码中，如果用户名错误，应该执行
 
-```java
+```
 catch (UsernameNotFoundException e) {
     return forbidden(LOGIN_USERNAME_ERROR, request);
 }
@@ -94,7 +94,7 @@ catch (UsernameNotFoundException e) {
 
 ### 如果密码错误，应该执行
 
-```java
+```
 catch (BadCredentialsException e) {
     return forbidden(LOGIN_PASSWORD_ERROR, request);
 }
@@ -114,7 +114,7 @@ catch (BadCredentialsException e) {
 
 经过步进法跟踪代码，发现问题所在，位于
 
-```java
+```
 AbstractUserDetailsAuthenticationProvider
 public Authentication authenticate(Authentication authentication)
 ```
@@ -135,7 +135,7 @@ public Authentication authenticate(Authentication authentication)
 
 ### 修改WebSecurityConfig配置，添加AuthenticationProvider Bean
 
-```java
+```
 @Bean
 public AuthenticationProvider daoAuthenticationProvider() {
     DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -148,7 +148,7 @@ public AuthenticationProvider daoAuthenticationProvider() {
 
 ### 配置AuthenticationProvider Bean
 
-```java
+```
 @Autowired
 public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
     authenticationManagerBuilder
@@ -162,13 +162,13 @@ public void configureAuthentication(AuthenticationManagerBuilder authenticationM
 
 在
 
-```java
+```
 val authenticate = authenticationManager.authenticate(upToken);
 ```
 
 前面还有一个
 
-```java
+```
 //执行UserDetailsService的loadUserByUsername验证用户名
 userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 ```
@@ -179,13 +179,13 @@ userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
 如果验证用户名通过以后，再次调用
 
-```java
+```
 val authenticate = authenticationManager.authenticate(upToken);
 ```
 
 还会再执行一遍
 
-```java
+```
 userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 ```
 

@@ -24,7 +24,7 @@ tags:
 
 Java 8在java.lang.Iterable接口中引入了forEach方法，这样在编写代码时我们只关注业务逻辑。 forEach方法将java.util.function.Consumer对象作为参数，因此它有助于将我们的业务逻辑放在我们可以重用的单独位置。让我们通过简单的例子看看每个用法。
 
-```java
+```
 List<IntegermyList = new ArrayList<Integer>();
 for(int i=0; i<10; i++) myList.add(i);
 
@@ -56,7 +56,7 @@ myList.forEach(System.out::println);
 
 jdk8之前，interface方法不能有实现，但是从Java 8开始，接口被增强为具有实现方法。我们可以使用default和static关键字来创建具有方法实现的接口。例如Iterable接口中的forEach方法实现是
 
-```java
+```
 default void forEach(Consumer<? super Taction) {
     Objects.requireNonNull(action);
     for (T t : this) {
@@ -130,7 +130,7 @@ public interface Runnable {
 
 功能接口的主要好处之一是可以使用lambda表达式来实例化它们。我们可以使用匿名类实例化一个接口，但代码看起来很笨重。
 
-```java
+```
 //使用匿名类实例化
 Runnable runnable = new Runnable() {
     @Override
@@ -142,7 +142,7 @@ Runnable runnable = new Runnable() {
 
 由于功能接口只有一个方法，因此lambda表达式可以很容易地提供方法实现。我们只需要提供方法参数和业务逻辑。例如，我们可以使用lambda表达式将上面的实现编写为：
 
-```java
+```
 //使用lambda表达式
 Runnable runnable1 = () -System.out.println("My Runnable");
 runnable.run();
@@ -151,7 +151,7 @@ runnable1.run();
 
 如果在方法实现中有单个语句，我们也不需要花括号。例如，上面的Interface1匿名类可以使用lambda实例化，如下所示：
 
-```java
+```
 Interface1 interface1 = (s) -System.out.println(s);
 interface1.method1("interface1 method");
 ```
@@ -160,7 +160,7 @@ interface1.method1("interface1 method");
 
 ### Java 中的 Lambda 表达式通常使用 (argument) -(body) 语法书写，例如：
 
-```java
+```
 (arg1, arg2...) -> { body }
 (type1 arg1, type2 arg2...) -> { body }
 ```
@@ -206,7 +206,7 @@ java.util.function中定义了几组类型的函数式接口以及针对基本�
 
 【示例】
 
-```java
+```
 Predicate<Integer> predicate = (i) -> i > 0;
 Consumer<Integer> consumer = (i) -> System.out.println("consumer : " + i);
 Function<Integer,Boolean> function = (i) -> i > 0;
@@ -226,7 +226,7 @@ System.out.println(binaryOperator.apply(100,200));
 
 ## 示例代码
 
-```java
+```
 //从 Collection 和数组
 List<Integerlist = new ArrayList<>();
 for(int i=0;i<100;i++) {
@@ -270,7 +270,7 @@ Java 8通过发布新的Date-Time API (JSR 310)来进一步加强对日期与时
 
 它通过指定一个时区，然后就可以获取到当前的时刻，日期与时间。Clock可以替换System.currentTimeMillis()与TimeZone.getDefault()。
 
-```java
+```
 // Get the system clock as UTC offset 
 final Clock clock = Clock.systemUTC();
 System.out.println(clock.instant());
@@ -279,7 +279,7 @@ System.out.println(clock.millis());
 
 下面是程序在控制台上的输出:
 
-```java
+```
 2019-01-09T14:52:50.111Z
 1547045570335
 ```
@@ -288,7 +288,7 @@ System.out.println(clock.millis());
 
 LocaleDate只持有ISO-8601格式且无时区信息的日期部分。相应的，LocaleTime只持有ISO-8601格式且无时区信息的时间部分。LocaleDate与LocalTime都可以从Clock中得到。
 
-```java
+```
 // Get the local date and local time
 final LocalDate date = LocalDate.now();
 final LocalDate dateFromClock = LocalDate.now(clock);
@@ -306,7 +306,7 @@ System.out.println(timeFromClock);
 
 下面是程序在控制台上的输出：
 
-```java
+```
 2019-01-09
 2019-01-09
 22:52:50.383
@@ -317,7 +317,7 @@ System.out.println(timeFromClock);
 
 LocaleDateTime把LocaleDate与LocaleTime的功能合并起来，它持有的是ISO-8601格式无时区信息的日期与时间。
 
-```java
+```
 // Get the local date/time
 final LocalDateTime datetime = LocalDateTime.now();
 final LocalDateTime datetimeFromClock = LocalDateTime.now(clock);
@@ -328,7 +328,7 @@ System.out.println(datetimeFromClock);
 
 下面是程序在控制台上的输出:
 
-```java
+```
 2019-01-09T22:55:05.194
 2019-01-09T14:55:05.194
 ```
@@ -337,7 +337,7 @@ System.out.println(datetimeFromClock);
 
 如果你需要特定时区的日期/时间，那么ZonedDateTime是你的选择。它持有ISO-8601格式具具有时区信息的日期与时间。
 
-```java
+```
 // Get the zoned date/time
 final ZonedDateTime zonedDatetime = ZonedDateTime.now();
 final ZonedDateTime zonedDatetimeFromClock = ZonedDateTime.now(clock);
@@ -350,7 +350,7 @@ System.out.println(zonedDatetimeFromZone);
 
 下面是程序在控制台上的输出：
 
-```java
+```
 2019-01-09T22:56:34.033+08:00[Asia/Shanghai]
 2019-01-09T14:56:34.033Z
 2019-01-09T06:56:34.035-08:00[America/Los_Angeles]
@@ -360,7 +360,7 @@ System.out.println(zonedDatetimeFromZone);
 
 在秒与纳秒级别上的一段时间。Duration使计算两个日期间的不同变的十分简单。
 
-```java
+```
 // Get duration between two dates
 final LocalDateTime from = LocalDateTime.of(2018, Month.APRIL, 16, 0, 0, 0);
 final LocalDateTime to = LocalDateTime.of(2019, Month.APRIL, 16, 23, 59, 59);
@@ -372,7 +372,7 @@ System.out.println("Duration in hours: " + duration.toHours());
 
 上面的例子计算了两个日期2018年4月16号与2019年4月16号之间的过程。下面是程序在控制台上的输出：
 
-```java
+```
 Duration in days: 365
 Duration in hours: 8783
 ```
@@ -387,7 +387,7 @@ Duration in hours: 8783
 
 ### 源码
 
-```java
+```
 default void forEachRemaining(Consumer<? super E> action) {
 	//传入一个非空消费者
     Objects.requireNonNull(action);
@@ -399,7 +399,7 @@ default void forEachRemaining(Consumer<? super E> action) {
 
 ### 示例代码
 
-```java
+```
 List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
 Iterator<Integer> iterator = list.iterator();
 //创建一个消费者
@@ -410,7 +410,7 @@ iterator.forEachRemaining(consumer);
 
 ### 控制台输出
 
-```java
+```
 consumer print 1
 consumer print 2
 consumer print 3
@@ -423,7 +423,7 @@ consumer print 3
 
 ### 源码
 
-```java
+```
 default boolean removeIf(Predicate<? super E> filter) {
 	//传入一个非空谓语
     Objects.requireNonNull(filter);
@@ -442,7 +442,7 @@ default boolean removeIf(Predicate<? super E> filter) {
 
 ### 示例代码
 
-```java
+```
 List<Integer> list = new ArrayList<>();
 list.add(1);
 list.add(2);
@@ -455,7 +455,7 @@ System.out.println("remove if left items : " + list);
 
 ### 控制台输出
 
-```java
+```
 //2,3,4满足条件被删除了
 remove if left items : [1]
 ```
@@ -466,7 +466,7 @@ remove if left items : [1]
 
 ### 源码
 
-```java
+```
 //该方法是接口默认方法
 default Spliterator<E> spliterator() {
     return Spliterators.spliterator(this, Spliterator.ORDERED);
@@ -475,7 +475,7 @@ default Spliterator<E> spliterator() {
 
 ### 示例代码
 
-```java
+```
 List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
 Spliterator<Integer> spliterator = list.spliterator();
 //创建顺序流
@@ -492,7 +492,7 @@ Stream<Integer> parallelStream = StreamSupport.stream(spliterator, true);
 
 #### 源码
 
-```java
+```
 public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
     Node<K,V>[] tab;
     if (function == null)
@@ -513,7 +513,7 @@ public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
 
 #### 示例代码
 
-```java
+```
 Map<String, String> map = new HashMap<>();
 map.put("1", "A");
 map.put("2", "B");
@@ -527,7 +527,7 @@ System.out.println(map);
 
 #### 控制台输出
 
-```java
+```
 //原来的value由key + value替换掉了
 {1=1A, 2=2B, 3=3C, 4=4D, 5=5E}
 ```
@@ -541,7 +541,7 @@ System.out.println(map);
 
 #### 示例代码
 
-```java
+```
 Map<String, String> map = new HashMap<>();
 map.put("1", "A");
 map.put("2", "B");
@@ -561,7 +561,7 @@ System.out.println("key存在，设置为null " + map.get("1"));
 
 #### 控制台输出
 
-```java
+```
 key存在A computed
 key不存在F
 key存在，设置为null null
@@ -573,7 +573,7 @@ key存在，设置为null null
 
 #### 示例代码
 
-```java
+```
 Map<String, String> map = new HashMap<>();
 map.put("1", "A");
 map.put("2", "B");
@@ -590,7 +590,7 @@ System.out.println(map.merge("6", "merge", (k, v) -> k + v));
 
 #### 控制台输出
 
-```java
+```
 Amerge
 null
 merge
@@ -619,7 +619,7 @@ JDK8提供的并发友好的HashMap
 
 返回一个延迟填充的Stream，其中的元素是目录中的条目。
 
-```java
+```
 //返回目录下的元素集合流
 Stream<Path> list = Files.list(new File("C:\\Users\\Administrator\\Desktop").toPath());
 list.forEach(System.out::println);
@@ -629,7 +629,7 @@ list.forEach(System.out::println);
 
 从文件中读取所有行作为流。
 
-```java
+```
 //返回文件中的所有行数
 Stream<String> lines = Files.lines(new File("C:\\Users\\Administrator\\Desktop\\new 3.txt").toPath());
 lines.forEach(System.out::println);
@@ -639,7 +639,7 @@ lines.forEach(System.out::println);
 
 通过搜索以给定起始文件为根的文件树中的文件，返回使用Path延迟填充的Stream。
 
-```java
+```
 //返回符合判断条件的Path流
 Stream<Path> stream = Files.find(new File("C:\\Users\\Administrator\\Desktop").toPath(),
         1,
@@ -651,28 +651,15 @@ stream.forEach(System.out::println);
 
 返回一个Stream，其元素是从这个BufferedReader读取的行。
 
-```java
+```
 //返回文件中的所有行数,类似Files.lines()
 BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Administrator\\Desktop\\new 3.txt"));
 Stream<String> stringStream = br.lines();
 stringStream.forEach(System.out::println);
 ```
 
-
 # 参考资源
 
 - [Java 8 Features with Examples](https://www.journaldev.com/2389/java-8-features-with-examples#java8-collection)
 - [为并发而生的 ConcurrentHashMap（Java 8）](https://www.cnblogs.com/yangming1996/p/8031199.html)
 - [通过实例理解 JDK8 的 CompletableFuture](https://www.ibm.com/developerworks/cn/java/j-cf-of-jdk8/index.html)
-
-
-
-
-
-
-
-
-
-
-
-

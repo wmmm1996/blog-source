@@ -61,7 +61,7 @@ public class Test {
 
 输出结果:
 
-```java
+```
 show
 ```
 
