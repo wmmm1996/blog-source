@@ -25,8 +25,6 @@ tags:
 - [单例模式-Singleton Pattern](https://gcdd1993.github.io/2019/01/15/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern/)
 - [原型模式-Prototype Pattern](https://gcdd1993.github.io/2019/01/15/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-Prototype-Pattern/)
 
-![](https://i.loli.net/2019/01/15/5c3d883570007.png)
-
 
 
 
