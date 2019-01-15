@@ -85,7 +85,7 @@ public class QuestionWeightsCopy implements IWeightsValue {
 
 简单的看一下，TemplateCopy中有一堆SubDomainWeightsCopy，和一堆QuestionWeightsCopy，我们在保存TemplateCopy的时候，通常按照如下来保存
 
-```
+```java
 1. templateCopy = save(TemplateCopy)
 2. QuestionWeightsCopy.setTemplateCopy(templateCopy)
 3. save(QuestionWeightsCopy)

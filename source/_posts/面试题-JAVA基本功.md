@@ -75,7 +75,7 @@ tags:
 ## 代码实践
 
 ### 1.获得 Class 对象
-```
+```java
 //通过getClass方法
 String s = "text";
 Class<?> c = s.getClass();
@@ -89,13 +89,13 @@ Class<Integer> type = Integer.TYPE;
 ```
 
 ### 2.判断是否为某个类的实例
-```
+```java
 List<String> testList = new ArrayList<>();
 System.out.println(ArrayList.class.isInstance(testList));
 ```
 
 ### 3.创建实例
-```
+```java
 String str = c2.newInstance();
 System.out.println("newInstance 创建实例 : " + str);
 //------
@@ -105,7 +105,7 @@ System.out.println("constructor 创建实例 : " + test);
 ```
 
 ### 4.获取方法
-```
+```java
 Class<MethodClass> clazz = MethodClass.class;
 MethodClass methodClass = clazz.newInstance();
 Method[] methods = clazz.getMethods();
@@ -126,7 +126,7 @@ for (Method m : declaredMethods) {
 ```
 
 ### 5.利用反射创建数组
-```
+```java
 Class<?> cls = Class.forName("java.lang.String");
 Object array = Array.newInstance(cls,25);
 //往数组里添加内容
@@ -144,7 +144,7 @@ System.out.println(Array.get(array,3));
 ## 元注解
 - @Target: 作用：用于描述注解的使用范围（即：被描述的注解可以用在什么地方）
 
-```
+```java
 取值(ElementType)有：
 
 　　　　1.CONSTRUCTOR:用于描述构造器
@@ -157,7 +157,7 @@ System.out.println(Array.get(array,3));
 ```
 - @Retention: 作用：表示需要在什么级别保存该注释信息，用于描述注解的生命周期（即：被描述的注解在什么范围内有效）
 
-```
+```java
 取值（RetentionPoicy）有：
 
 　　　　1.SOURCE:在源文件中有效（即源文件保留）
@@ -203,7 +203,7 @@ public class MyService {
 
 ### 创建测试类，获取注解的属性
 
-```
+```java
 public class Test {
     public static void main(String[] args) {
         Class clazz = MyService.class;
@@ -247,32 +247,32 @@ public class Test {
 
 1. 加载Driver类，注册数据库驱动；
 
-```
+```java
 Class.forName("com.sqlite.jdbc.Driver");
 ```
 
 2. 通过DriverManager,使用url，用户名和密码建立连接(Connection)；
 
-```
+```java
 connection = DriverManager.getConnection("jdbc:sqlite:C:\\db\\test.db");
 ```
 
 3. 通过Connection，使用sql语句打开Statement对象；
 
-```
+```java
 ps = connection.prepareStatement("select * from student where age =?");
 ps.setInt(1, 10);
 ```
 
 4. 执行语句，将结果返回resultSet；
 
-```
+```java
 resultSet = ps.executeQuery();
 ```
 
 5. 对结果resultSet进行处理；
 
-```
+```java
 while (resultSet.next()) {
     String name = resultSet.getString("name");
     int age = resultSet.getInt("age");
@@ -282,7 +282,7 @@ while (resultSet.next()) {
 
 6. 倒叙释放资源resultSet -> preparedStatement -> connection。
 
-```
+```java
 try {}
 catch(){}
 finally {
