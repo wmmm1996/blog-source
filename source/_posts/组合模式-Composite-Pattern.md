@@ -26,7 +26,7 @@ tags:
 
 ![](https://i.imgur.com/sEeuzk1.png)
 
-# 代码示例
+# 案例
 
 用杀毒软件扫描文件夹杀毒作为案例。
 

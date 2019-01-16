@@ -25,7 +25,7 @@ tags:
 
 ![](https://i.loli.net/2019/01/14/5c3cac24ebe3f.png)
 
-# 代码示例
+# 案例
 
 创建产品接口类:
 

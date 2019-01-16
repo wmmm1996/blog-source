@@ -26,7 +26,7 @@ tags:
 
 ![](https://i.imgur.com/mlnhbhf.png)
 
-# 代码示例
+# 案例
 
 抽象构件类:
 

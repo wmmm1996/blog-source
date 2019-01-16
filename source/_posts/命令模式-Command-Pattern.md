@@ -28,7 +28,7 @@ tags:
 
 ![](https://i.imgur.com/z8NiaKT.png)
 
-# 代码示例
+# 案例
 
 FBSettingWindow是"功能键设置"界面类，FunctionButton充当请求调用者，Command充当抽象命令类，MinimizeCommand和HelpCommand充当具体命令类，WindowHanlder和HelpHandler充当请求接收者。
 

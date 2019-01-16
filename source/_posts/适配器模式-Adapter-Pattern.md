@@ -10,8 +10,6 @@ tags:
 
 将一个接口转换成客户希望的另一个接口，使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。<!-- more -->
 
-# 适用场景
-
 # 适配器分类
 
 ## 默认适配器模式(Default Adapter)
@@ -92,7 +90,7 @@ public class FileMonitor extends FileAlterationListenerAdaptor {
 
 ![](https://i.imgur.com/9iriQ74.png)
 
-### 代码示例
+### 案例
 
 创建目标角色:
 
@@ -138,7 +136,7 @@ public class Adapter extends Adaptee implements Target {
 
 与类的适配器模式一样，对象的适配器模式把被适配的类的API转换成为目标类的API，与类的适配器模式不同的是，对象的适配器模式不是使用继承关系连接到Adaptee类，而是使用委派关系连接到Adaptee类。
 
-### 代码示例
+### 案例
 
 只有适配器不同，目标和源角色与类适配器一致，看看对象适配器模式下是怎么将源角色与目标适配起来的。
 

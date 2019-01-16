@@ -27,7 +27,7 @@ tags:
 
 ![](https://i.imgur.com/r4sZZoJ.png)
 
-# 代码示例
+# 案例
 
 围棋棋子类(抽象享元类):
 

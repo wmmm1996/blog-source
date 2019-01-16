@@ -25,7 +25,7 @@ tags:
 
 ![](https://i.imgur.com/jFyqrYW.png)
 
-# 代码示例
+# 案例
 
 抽象类Approver充当抽象处理者（抽象传递者），Director、VicePresident、President和Congress充当具体处理者（具体传递者），PurchaseRequest充当请求类。
 
