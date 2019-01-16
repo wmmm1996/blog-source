@@ -35,18 +35,18 @@ tags:
 |[适配器模式-Adapter Pattern](https://gcdd1993.github.io/2019/01/15/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F-Adapter-Pattern/)|★★☆☆☆|★★★★☆|
 |[桥接模式-Bridge Pattern](https://gcdd1993.github.io/2019/01/15/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F-Bridge-Pattern/)|★★★☆☆|★★★☆☆|
 |[组合模式-Composite Pattern](https://gcdd1993.github.io/2019/01/15/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-Composite-Pattern/)|★★★☆☆|★★★★☆|
-|[装饰模式-Decorator Pattern]()|★★★☆☆|★★★☆☆|
-|[外观模式-Facade Pattern]()|★☆☆☆☆|★★★★★|
-|[享元模式-Flyweight Pattern]()|★★★★☆|★☆☆☆☆|
-|[代理模式-Proxy Pattern]()|★★★☆☆|★★★★☆|
+|[装饰模式-Decorator Pattern](https://gcdd1993.github.io/2019/01/15/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-Decorator%20Pattern/)|★★★☆☆|★★★☆☆|
+|[外观模式-Facade Pattern](https://gcdd1993.github.io/2019/01/15/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-Facade-Pattern/)|★☆☆☆☆|★★★★★|
+|[享元模式-Flyweight Pattern](https://gcdd1993.github.io/2019/01/16/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F-Flyweight-Pattern/)|★★★★☆|★☆☆☆☆|
+|[代理模式-Proxy Pattern](https://gcdd1993.github.io/2019/01/16/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F-Proxy-Pattern/)|★★★☆☆|★★★★☆|
 
 # 十一个行为型模式
 
 |名称|学习难度|使用频率|
 |-|-|-|
-|[职责链模式-Chain of Responsibility Pattern]()|★★★☆☆|★★☆☆☆|
-|[命令模式-Command Pattern]()|★★★☆☆|★★★★☆|
-|[解释器模式-Interpreter Pattern]()|★★★★★|★☆☆☆☆|
+|[职责链模式-Chain of Responsibility Pattern](https://gcdd1993.github.io/2019/01/16/%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F-Chain-of-Responsibility-Pattern/)|★★★☆☆|★★☆☆☆|
+|[命令模式-Command Pattern](https://gcdd1993.github.io/2019/01/16/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-Command-Pattern/)|★★★☆☆|★★★★☆|
+|[解释器模式-Interpreter Pattern](https://gcdd1993.github.io/2019/01/16/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F-Interpreter-Pattern/)|★★★★★|★☆☆☆☆|
 |[迭代器模式-Iterator Pattern]()|★★★☆☆|★★★★★|
 |[中介者模式-Mediator Pattern]()|★★★☆☆|★★☆☆☆|
 |[备忘录模式-Memento Pattern]()|★★☆☆☆|★★☆☆☆|
