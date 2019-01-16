@@ -5,7 +5,10 @@ node_js: stable
 branches:
   only:
     - master
-before_install: 
+cache:
+  directories:
+    - node_modules
+before_install:
   - export TZ='Asia/Shanghai'
   - npm install hexo-cli -g
   - sudo apt-get install libpng16-dev
