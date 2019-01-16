@@ -24,11 +24,11 @@ tags:
 - 系统需要支持命令的撤销(Undo)操作和恢复(Redo)操作。
 - 系统需要将一组操作组合在一起形成宏命令。
 
-# UML类图
+# 案例
+
+UML类图
 
 ![](https://i.imgur.com/z8NiaKT.png)
-
-# 案例
 
 FBSettingWindow是"功能键设置"界面类，FunctionButton充当请求调用者，Command充当抽象命令类，MinimizeCommand和HelpCommand充当具体命令类，WindowHanlder和HelpHandler充当请求接收者。
 

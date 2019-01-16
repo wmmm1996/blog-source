@@ -21,11 +21,11 @@ tags:
 - 在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。
 - 可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。
 
-# UML类图
+# 案例
+
+UML类图
 
 ![](https://i.imgur.com/jFyqrYW.png)
-
-# 案例
 
 抽象类Approver充当抽象处理者（抽象传递者），Director、VicePresident、President和Congress充当具体处理者（具体传递者），PurchaseRequest充当请求类。
 
