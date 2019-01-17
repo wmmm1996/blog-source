@@ -50,7 +50,7 @@ categories:
 |-|-|-|
 |[职责链模式-Chain of Responsibility Pattern](https://gcdd1993.github.io/2019/%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F-Chain-of-Responsibility-Pattern/)|★★★☆☆|★★☆☆☆|
 |[命令模式-Command Pattern](https://gcdd1993.github.io/2019/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-Command-Pattern/)|★★★☆☆|★★★★☆|
-|[解释器模式-Interpreter Pattern](https://gcdd1993.github.io/2019/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F-Interpreter-Pattern/)|★★★★★|★☆☆☆☆|
+|[解释器模式-Interpreter Pattern](#解释器模式-Interpreter-Pattern)|★★★★★|★☆☆☆☆|
 |[迭代器模式-Iterator Pattern]()|★★★☆☆|★★★★★|
 |[中介者模式-Mediator Pattern]()|★★★☆☆|★★☆☆☆|
 |[备忘录模式-Memento Pattern]()|★★☆☆☆|★★☆☆☆|
