@@ -7,7 +7,6 @@ tags:
 categories: 
   - 理论学习
   - JAVA
-  - 设计模式
 ---
 
 # 概述
@@ -291,3 +290,5 @@ public class Client {
     }
 }
 ```
+
+[返回设计模式概览](#理论学习/JAVA/设计模式概览)

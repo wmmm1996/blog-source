@@ -7,7 +7,6 @@ tags:
 categories: 
   - 理论学习
   - JAVA
-  - 设计模式
 ---
 
 # 概述
@@ -159,3 +158,5 @@ public class Test {
 ```
 User(username=小明, password=123456, age=20)
 ```
+
+[返回设计模式概览](#理论学习/JAVA/设计模式概览)
