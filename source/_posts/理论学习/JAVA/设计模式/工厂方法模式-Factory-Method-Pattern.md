@@ -1,0 +1,120 @@
+---
+title: 工厂方法模式-Factory Method Pattern
+date: 2019-01-15 10:22:31
+tags:
+  - java
+  - 设计模式
+categories: 
+  - 理论学习
+  - JAVA
+  - 设计模式
+---
+
+# 概述
+
+工厂方法模式，又称工厂模式、多态工厂模式和虚拟构造器模式，通过定义工厂父类负责定义创建对象的公共接口，而子类则负责生成具体的对象。<!-- more -->
+
+# 组成
+
+- 抽象产品(BaseProduct)
+- 抽象工厂(AbstractProductFactory)
+- 具体产品(ProductA,B,C)
+- 具体工厂(FactoryA,B,C)
+
+# 适用场景
+
+- 当一个类不知道它所需要的对象的类时
+- 当一个类希望通过其子类来指定创建对象时
+- 将创建对象的任务委托给多个工厂子类中的某一个，客户端在使用时可以无须关心是哪一个工厂子类创建产品子类，需要时再动态指定，可将具体工厂类的类名存储在配置文件或数据库中。
+
+# 案例
+
+UML类图
+
+![](https://i.loli.net/2019/01/14/5c3ca9c875a43.png)
+
+创建抽象工厂类，定义具体工厂的公共接口:
+
+```java
+public abstract class AbstractProductFactory {
+    public abstract BaseProduct Manufacture();
+}
+```
+
+创建抽象产品类 ，定义具体产品的公共接口:
+
+```java
+public abstract class BaseProduct {
+    public abstract void Show();
+}
+```
+
+创建具体产品类（继承抽象产品类）,定义生产的具体产品:
+
+```java
+public class ProductA extends BaseProduct {
+    @Override
+    public void Show() {
+        System.out.println("生产出了产品A");
+    }
+}
+public class ProductB extends BaseProduct {
+    @Override
+    public void Show() {
+        System.out.println("生产出了产品B");
+    }
+}
+```
+
+创建具体工厂类（继承抽象工厂类）,定义创建对应具体产品实例的方法:
+
+```java
+public class FactoryA extends AbstractProductFactory {
+    @Override
+    public BaseProduct Manufacture() {
+        return new ProductA();
+    }
+}
+public class FactoryB extends AbstractProductFactory {
+    @Override
+    public BaseProduct Manufacture() {
+        return new ProductB();
+    }
+}
+```
+
+外界通过调用具体工厂类的方法，从而创建不同具体产品类的实例:
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        //客户要产品A
+        FactoryA mFactoryA = new FactoryA();
+        mFactoryA.Manufacture().Show();
+
+        //客户要产品B
+        FactoryB mFactoryB = new FactoryB();
+        mFactoryB.Manufacture().Show();
+    }
+}
+```
+
+输出结果:
+
+```
+生产出了产品A
+生产出了产品B
+```
+
+# 优缺点
+
+## 优点
+
+- 更符合开-闭原则:新增一种产品时，只需要增加相应的具体产品类和相应的工厂子类即可
+- 符合单一职责原则:每个具体工厂类只负责创建对应的产品
+- 不使用静态工厂方法，可以形成基于继承的等级结构
+
+## 缺点
+
+- 在添加新产品时，需要编写新的具体产品类，而且还要提供与之对应的具体工厂类，系统中类的个数将成对增加，在一定程度上增加了系统的复杂度，有更多的类需要编译和运行，会给系统带来一些额外的开销。
+- 由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、反射等技术，增加了系统的实现难度。
