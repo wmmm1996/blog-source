@@ -15,13 +15,13 @@ categories:
 
 # 组成
 
-- **Mediator（抽象中介者）**
+- Mediator（抽象中介者）
 > 它定义一个接口，该接口用于与各同事对象之间进行通信。
-- **ConcreteMediator（具体中介者）**
+- ConcreteMediator（具体中介者）
 > 它是抽象中介者的子类，通过协调各个同事对象来实现协作行为，它维持了对各个同事对象的引用。
-- **Colleague（抽象同事类）**
+- Colleague（抽象同事类）
 > 它定义各个同事类公有的方法，并声明了一些抽象方法来供子类实现，同时它维持了一个对抽象中介者类的引用，其子类可以通过该引用来与中介者通信。
-- **ConcreteColleague（具体同事类）**
+- ConcreteColleague（具体同事类）
 > 它是抽象同事类的子类；每一个同事对象在需要和其他同事对象通信时，先与中介者通信，通过中介者来间接完成与其他同事类的通信；在具体同事类中实现了在抽象同事类中声明的抽象方法。
 
 # 适用场景
@@ -41,6 +41,7 @@ Component充当抽象同事类，Button、List、ComboBox和TextBox充当具体�
 Component:
 
 ```java
+//抽象同事类
 public abstract class Component {
     @Setter
     protected Mediator mediator;
@@ -52,19 +53,14 @@ public abstract class Component {
 
     public abstract void update();
 }
-```
-
-Button、List、ComboBox和TextBox:
-
-```java
-//按钮类
+//按钮类(具体同事类)
 public class Button extends Component {
     @Override
     public void update() {
         //按钮不产生交互
     }
 }
-//列表框类
+//列表框类(具体同事类)
 public class List extends Component {
     @Override
     public void update() {
@@ -75,7 +71,7 @@ public class List extends Component {
         System.out.println("列表框选中项：小龙女。");
     }
 }
-//组合框类
+//组合框类(具体同事类)
 public class ComboBox extends Component {
     @Override
     public void update() {
@@ -87,7 +83,7 @@ public class ComboBox extends Component {
     }
 
 }
-//文本框类
+//文本框类(具体同事类)
 public class TextBox extends Component {
     @Override
     public void update() {
@@ -99,19 +95,11 @@ public class TextBox extends Component {
     }
 
 }
-```
-
-Mediator:
-
-```java
+//抽象中介者
 public abstract class Mediator {
     public abstract void componentChanged(Component c);
 }
-```
-
-ConcreteMediator:
-
-```java
+//具体中介者
 public class ConcreteMediator extends Mediator {
 
     //维持对各个同事对象的引用
@@ -146,7 +134,7 @@ public class ConcreteMediator extends Mediator {
 }
 ```
 
-客户端代码:
+客户端:
 
 ```java
 public class Client {
@@ -207,4 +195,6 @@ public class Client {
 - 可能会导致具体中介者类非常复杂
 > 在具体中介者类中包含了大量同事之间的交互细节，可能会导致具体中介者类非常复杂，使得系统难以维护。
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/mediatorPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

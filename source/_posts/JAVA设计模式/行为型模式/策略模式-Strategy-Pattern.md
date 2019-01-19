@@ -36,8 +36,6 @@ categories:
 
 电影院打折方案
 
-MovieTicket充当环境类角色，Discount充当抽象策略角色，StudentDiscount、 ChildrenDiscount 和VIPDiscount充当具体策略角色。
-
 ```java
 //电影票类：环境类
 @Data
@@ -81,7 +79,7 @@ public class VIPDiscount implements Discount {
 }
 ```
 
-客户端
+客户端：
 
 ```java
 public class Client {
@@ -102,7 +100,7 @@ public class Client {
 }
 ```
 
-输出结果
+输出结果：
 
 ```
 原始价为：60.0
@@ -134,4 +132,6 @@ VIP票：
 - 无法同时在客户端使用多个策略类
 > 也就是说，在使用策略模式时，客户端每次只能使用一个策略类，不支持使用一个策略类完成部分功能后再使用另一个策略类来完成剩余功能的情况。
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/strategyPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

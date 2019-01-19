@@ -29,7 +29,7 @@ UML类图
 
 ![](https://i.loli.net/2019/01/14/5c3ca9c87c39b.png)
 
-创建单例:
+单例
 
 ```java
 public class Singleton {
@@ -50,7 +50,7 @@ public class Singleton {
 }
 ```
 
-创建测试类:
+测试类
 
 ```java
 public class Test {
@@ -60,7 +60,7 @@ public class Test {
 }
 ```
 
-输出结果:
+输出结果
 
 ```
 show
@@ -189,4 +189,6 @@ public enum Singleton {
 }
 ```
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/singletonPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

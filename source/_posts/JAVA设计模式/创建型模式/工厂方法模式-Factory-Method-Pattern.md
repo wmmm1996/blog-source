@@ -36,25 +36,16 @@ UML类图
 
 ![](https://i.loli.net/2019/01/14/5c3ca9c875a43.png)
 
-创建抽象工厂类，定义具体工厂的公共接口:
-
 ```java
+//抽象工厂类，定义具体工厂的公共接口
 public abstract class AbstractProductFactory {
     public abstract BaseProduct Manufacture();
 }
-```
-
-创建抽象产品类 ，定义具体产品的公共接口:
-
-```java
+//抽象产品类 ，定义具体产品的公共接口
 public abstract class BaseProduct {
     public abstract void Show();
 }
-```
-
-创建具体产品类（继承抽象产品类）,定义生产的具体产品:
-
-```java
+//具体产品类（继承抽象产品类）,定义生产的具体产品
 public class ProductA extends BaseProduct {
     @Override
     public void Show() {
@@ -67,11 +58,7 @@ public class ProductB extends BaseProduct {
         System.out.println("生产出了产品B");
     }
 }
-```
-
-创建具体工厂类（继承抽象工厂类）,定义创建对应具体产品实例的方法:
-
-```java
+//具体工厂类（继承抽象工厂类）,定义创建对应具体产品实例的方法
 public class FactoryA extends AbstractProductFactory {
     @Override
     public BaseProduct Manufacture() {
@@ -121,7 +108,11 @@ public class Test {
 
 ## 缺点
 
-- 在添加新产品时，需要编写新的具体产品类，而且还要提供与之对应的具体工厂类，系统中类的个数将成对增加，在一定程度上增加了系统的复杂度，有更多的类需要编译和运行，会给系统带来一些额外的开销。
-- 由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、反射等技术，增加了系统的实现难度。
+- 增加了系统的复杂度以及额外的开销
+> 在添加新产品时，需要编写新的具体产品类，而且还要提供与之对应的具体工厂类，系统中类的个数将成对增加，在一定程度上增加了系统的复杂度，有更多的类需要编译和运行，会给系统带来一些额外的开销。
+- 增加了系统的实现难度
+> 由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、反射等技术，增加了系统的实现难度。
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/factoryMethodPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

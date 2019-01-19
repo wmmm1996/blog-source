@@ -27,7 +27,8 @@ categories:
 - 可以将一个需要解释执行的语言中的句子表示为一个抽象语法树。
 - 一些重复出现的问题可以用一种简单的语言来进行表达。
 - 一个语言的文法较为简单。
-- 执行效率不是关键问题。【注：高效的解释器通常不是通过直接解释抽象语法树来实现的，而是需要将它们转换成其他形式，使用解释器模式的执行效率并不高。】
+- 执行效率不是关键问题。
+> 【注：高效的解释器通常不是通过直接解释抽象语法树来实现的，而是需要将它们转换成其他形式，使用解释器模式的执行效率并不高。】
 
 # 案例
 
@@ -42,8 +43,6 @@ categories:
 其中关键词LOOP表示“循环”，后面的数字表示循环次数；PRINT表示“打印”，后面的字符串表示打印的内容；SPACE表示“空格”；BREAK表示“换行”；END表示“循环结束”。每一个关键词对应一条命令，计算机程序将根据关键词执行相应的处理操作。
 
 解释器模式实现:
-
-Context充当环境角色:
 
 ```java
 //环境类：用于存储和操作需要解释的语句，在本实例中每一个需要解释的单词可以称为一个动作标记(Action Token)或命令
@@ -90,20 +89,11 @@ public class Context {
         return number;
     }
 }
-```
-
-Node充当抽象表达式角色:
-
-```java
+//抽象表达式角色
 public abstract class Node {
     public abstract void interpret(Context text); //声明一个方法用于解释语句
     public abstract void execute(); //声明一个方法用于执行标记对应的命令
 }
-```
-
-ExpressionNode、CommandNode和LoopCommandNode充当非终结符表达式角色:
-
-```java
 //表达式节点类：非终结符表达式
 public class ExpressionNode extends Node {
     private List<Node> list = new ArrayList<>(); //定义一个集合用于存储多条命令
@@ -184,11 +174,6 @@ public class LoopCommandNode extends Node {
         }
     }
 }
-```
-
-PrimitiveCommandNode充当终结符表达式角色:
-
-```java
 //基本命令节点类：终结符表达式
 public class PrimitiveCommandNode extends Node {
     private String name;
@@ -271,4 +256,6 @@ public class Client {
 - 执行效率较低
 > 由于在解释器模式中使用了大量的循环和递归调用，因此在解释较为复杂的句子时其速度很慢，而且代码的调试过程也比较麻烦。
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/interpreterPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

@@ -109,7 +109,7 @@ public class Player implements Observer {
 }
 ```
 
-客户端
+客户端：
 
 ```java
 public class Client {
@@ -188,7 +188,7 @@ void  update(Observable o, Object arg);
 
 -  Observable类
 
-java.util.Observable类充当观察目标类，在Observable中定义了一个向量Vector来存储观察者对象。
+> java.util.Observable类充当观察目标类，在Observable中定义了一个向量Vector来存储观察者对象。
 
 |方法名|方法描述|
 |-|-|
@@ -204,5 +204,6 @@ java.util.Observable类充当观察目标类，在Observable中定义了一个�
 
 > 我们可以直接使用Observer接口和Observable类来作为观察者模式的抽象层，再自定义具体观察者类和具体观察目标类，通过使用JDK中的Observer接口和Observable类，可以更加方便地在Java语言中应用观察者模式。
 
-  
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/observerPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

@@ -15,13 +15,13 @@ categories:
 
 # 组成
 
--  **建造者角色**
+-  建造者角色
 > 定义生成实例所需要的所有方法
--  **具体的建造者角色**
+-  具体的建造者角色
 > 实现生成实例所需要的所有方法，并且定义获取最终生成实例的方法
--  **监工角色**
+-  监工角色
 > 定义使用建造者角色中的方法来生成实例的方法
--  **使用者**
+-  使用者
 > 使用建造者模式
 
 # 适用场景
@@ -35,9 +35,8 @@ UML类图
 
 ![](https://i.loli.net/2019/01/15/5c3da07985517.png)
 
-建造者：
-
 ```java
+//建造者
 public abstract class Builder {
     public abstract void buildPart1();
 
@@ -45,11 +44,6 @@ public abstract class Builder {
 
     public abstract void buildPart3();
 }
-```
-
-监工：
-
-```java
 // 将一个复杂的构建过程与其表示相分离
 public class Director {
     // 针对接口编程，而不是针对实现编程
@@ -73,11 +67,7 @@ public class Director {
         builder.buildPart3();
     }
 }
-```
-
-具体的建造者:
-
-```java
+//具体的建造者
 public class ConcreteBuilder1 extends Builder {
     private StringBuffer buffer = new StringBuffer();//假设 buffer.toString() 就是最终生成的产品
 
@@ -163,4 +153,6 @@ public class Test {
 User(username=小明, password=123456, age=20)
 ```
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/buildPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

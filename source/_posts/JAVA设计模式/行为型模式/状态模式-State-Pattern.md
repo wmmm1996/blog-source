@@ -102,8 +102,6 @@ class Account {
 ## 解决方案
 > 状态模式可以在一定程度上解决上述问题
 
-Account充当环境类角色，AccountState充当抽象状态角色，NormalState、OverdraftState和RestrictedState充当具体状态角色。
-
 ```java
 //银行账户：环境类
 public class Account {
@@ -324,4 +322,6 @@ public class Client {
 - 对“开闭原则”的支持并不太好
 > 增加新的状态类需要修改那些负责状态转换的源代码，否则无法转换到新增状态；而且修改某个状态类的行为也需修改对应类的源代码。
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/statePattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

@@ -15,33 +15,34 @@ categories:
 
 # 组成
 
-- **Command（抽象命令类）**
+- Command（抽象命令类）
 > 抽象命令类一般是一个抽象类或接口，在其中声明了用于执行请求的execute()等方法，通过这些方法可以调用请求接收者的相关操作。
-- **ConcreteCommand（具体命令类）**
+- ConcreteCommand（具体命令类）
 > 具体命令类是抽象命令类的子类，实现了在抽象命令类中声明的方法，它对应具体的接收者对象，将接收者对象的动作绑定其中。在实现execute()方法时，将调用接收者对象的相关操作(Action)。
-- **Invoker（调用者）**
+- Invoker（调用者）
 > 调用者即请求发送者，它通过命令对象来执行请求。一个调用者并不需要在设计时确定其接收者，因此它只与抽象命令类之间存在关联关系。在程序运行时可以将一个具体命令对象注入其中，再调用具体命令对象的execute()方法，从而实现间接调用请求接收者的相关操作。
-- **Receiver（接收者）**
+- Receiver（接收者）
 > 接收者执行与请求相关的操作，它具体实现对请求的业务处理。
 
 # 适用场景
 
-- 系统需要将请求调用者和请求接收者解耦，使得调用者和接收者不直接交互。请求调用者无须知道接收者的存在，也无须知道接收者是谁，接收者也无须关心何时被调用。
-- 系统需要在不同的时间指定请求、将请求排队和执行请求。一个命令对象和请求的初始调用者可以有不同的生命期。
+- 系统需要将请求调用者和请求接收者解耦，使得调用者和接收者不直接交互。
+> 请求调用者无须知道接收者的存在，也无须知道接收者是谁，接收者也无须关心何时被调用。
+- 系统需要在不同的时间指定请求、将请求排队和执行请求。
+> 一个命令对象和请求的初始调用者可以有不同的生命期。
 - 系统需要支持命令的撤销(Undo)操作和恢复(Redo)操作。
 - 系统需要将一组操作组合在一起形成宏命令。
 
 # 案例
 
+为了降低功能键与功能处理类之间的耦合度，让用户可以自定义每一个功能键的功能，开发人员使用命令模式来设计“自定义功能键”模块。
+
 UML类图
 
 ![](https://i.imgur.com/z8NiaKT.png)
 
-FBSettingWindow是"功能键设置"界面类，FunctionButton充当请求调用者，Command充当抽象命令类，MinimizeCommand和HelpCommand充当具体命令类，WindowHanlder和HelpHandler充当请求接收者。
-
-功能键设置窗口类:
-
 ```java
+//功能键设置窗口类
 public class FBSettingWindow {
     private String title; //窗口标题
     //定义一个ArrayList来存储所有功能键
@@ -77,11 +78,7 @@ public class FBSettingWindow {
         System.out.println("------------------------------");
     }
 }
-```
-
-功能键类:
-
-```java
+//功能键类(调用者)
 public class FunctionButton {
     private String name; //功能键名称
     private Command command; //维持一个抽象命令对象的引用
@@ -105,11 +102,6 @@ public class FunctionButton {
         command.execute();
     }
 }
-```
-
-命令类:
-
-```java
 //抽象命令类
 public abstract class Command {
     public abstract void execute();
@@ -142,11 +134,6 @@ public class MinimizeCommand extends Command {
         whObj.minimize();
     }
 }
-```
-
-处理类:
-
-```java
 //窗口处理类
 public class WindowHanlder {
     public void minimize() {
@@ -213,12 +200,15 @@ public class Client {
 - 降低系统的耦合度。
 > 由于请求者与接收者之间不存在直接引用，因此请求者与接收者之间实现完全解耦，相同的请求者可以对应不同的接收者，同样，相同的接收者也可以供不同的请求者使用，两者之间具有良好的独立性。
 - 新的命令可以很容易地加入到系统中。
-> 由于增加新的具体命令类不会影响到其他类，因此增加新的具体命令类很容易，无须修改原有系统源代码，甚至客户类代码，**满足开闭原则的要求**。
+> 由于增加新的具体命令类不会影响到其他类，因此增加新的具体命令类很容易，无须修改原有系统源代码，甚至客户类代码，满足“开闭原则”的要求。
 - 可以比较容易地设计一个[命令队列](https://blog.csdn.net/lovelion/article/details/8806239)或[宏命令（组合命令）](https://blog.csdn.net/lovelion/article/details/8806677)。
 - 为请求的[撤销(Undo)和恢复(Redo)操作](https://blog.csdn.net/lovelion/article/details/8806509)提供了一种设计和实现方案。
 
 ## 缺点
 
-使用命令模式可能会导致某些系统有过多的具体命令类。因为针对每一个对请求接收者的调用操作都需要设计一个具体命令类，因此在某些系统中可能需要提供大量的具体命令类，这将影响命令模式的使用。
+使用命令模式可能会导致某些系统有过多的具体命令类。
+> 因为针对每一个对请求接收者的调用操作都需要设计一个具体命令类，因此在某些系统中可能需要提供大量的具体命令类，这将影响命令模式的使用。
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/commandPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

@@ -33,10 +33,6 @@ categories:
 
 ![](https://i.imgur.com/gDne3e5.png)
 
-Chessman充当原发器，ChessmanMemento充当备忘录，MementoCaretaker充当负责人，在MementoCaretaker中定义了一个ChessmanMemento类型的对象，用于存储备忘录。
-
-Chessman:
-
 ```java
 //象棋棋子类：原发器
 @Data
@@ -58,11 +54,6 @@ public class Chessman {
         this.y = memento.getY();
     }
 }
-```
-
-ChessmanMemento:
-
-```java
 //象棋棋子备忘录类：备忘录
 @Data
 @AllArgsConstructor
@@ -71,11 +62,6 @@ public class ChessmanMemento {
     private int x;
     private int y;
 }
-```
-
-MementoCaretaker:
-
-```java
 //象棋棋子备忘录管理类：负责人
 @Data
 public class MementoCaretaker {
@@ -87,7 +73,7 @@ public class MementoCaretaker {
 
 ```java
 public class Client {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         MementoCaretaker mc = new MementoCaretaker();
         Chessman chess = new Chessman("车", 1, 1);
         display(chess);
@@ -134,4 +120,6 @@ public class Client {
 - 资源消耗过大
 > 如果需要保存的原发器类的成员变量太多，就不可避免需要占用大量的存储空间，每保存一次对象的状态都需要消耗一定的系统资源。
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/mementoPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)

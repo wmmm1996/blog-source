@@ -35,8 +35,6 @@ categories:
 
 # 案例
 
-业务类,提供具体业务逻辑:
-
 ```java
 //身份验证类，业务类，它提供方法Validate()来实现身份验证
 public class AccessValidator {
@@ -57,19 +55,11 @@ public class Logger {
         System.out.println("更新数据库，用户" + userId + "查询次数加1！");
     }
 }
-```
-
-抽象查询类:
-
-```java
+//抽象查询类
 public interface Searcher {
     String doSearch(String userId, String keyword);
 }
-```
-
-具体查询类:
-
-```java
+//具体查询类
 public class RealSearcher implements Searcher {
     @Override
     public String doSearch(String userId, String keyword) {
@@ -77,11 +67,7 @@ public class RealSearcher implements Searcher {
         return "返回具体内容";
     }
 }
-```
-
-代理查询类,在具体查询之前执行一些业务逻辑，达到增强该方法的目的:
-
-```java
+//代理查询类,在具体查询之前执行一些业务逻辑，达到增强该方法的目的
 public class ProxySearcher implements Searcher {
     private RealSearcher searcher = new RealSearcher(); //维持一个对真实主题的引用
     private AccessValidator validator;
@@ -140,12 +126,16 @@ public class ProxySample {
 
 ## 优点
 
-- 能够协调调用者和被调用者，在一定程度上降低了系统的耦合度。
-- 客户端可以针对抽象主题角色进行编程，增加和更换代理类无须修改源代码，符合开闭原则，系统具有较好的灵活性和可扩展性。
+- 降低了系统的耦合度
+> 能够协调调用者和被调用者，在一定程度上降低了系统的耦合度。
+- 系统具有较好的灵活性和可扩展性
+> 客户端可以针对抽象主题角色进行编程，增加和更换代理类无须修改源代码，符合开闭原则，系统具有较好的灵活性和可扩展性。
 
 ## 缺点
 
 - 由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢，例如保护代理。
 - 实现代理模式需要额外的工作，而且有些代理模式的实现过程较为复杂，例如远程代理。
 
-[返回设计模式概览](#JAVA设计模式/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/proxyPattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)
