@@ -5,23 +5,27 @@ tags:
   - java
   - 设计模式
 categories: 
-  - 理论学习
-  - JAVA
+  - JAVA设计模式
 ---
 
 # 概述
+> 使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。
 
-使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。<!-- more -->
+<!-- more -->
 
 # 组成
 
-- **Prototype（抽象原型类）**：它是声明克隆方法的接口，是所有具体原型类的公共父类，可以是抽象类也可以是接口，甚至还可以是具体实现类。
-- **ConcretePrototype（具体原型类）**：它实现在抽象原型类中声明的克隆方法，在克隆方法中返回自己的一个克隆对象。
-- **Client（客户类）**：让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直接实例化或通过工厂方法等方式创建一个原型对象，再通过调用该对象的克隆方法即可得到多个相同的对象。
+- Prototype（抽象原型类）
+> 它是声明克隆方法的接口，是所有具体原型类的公共父类，可以是抽象类也可以是接口，甚至还可以是具体实现类。
+- ConcretePrototype（具体原型类）
+> 它实现在抽象原型类中声明的克隆方法，在克隆方法中返回自己的一个克隆对象。
+- Client（客户类）
+> 让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直接实例化或通过工厂方法等方式创建一个原型对象，再通过调用该对象的克隆方法即可得到多个相同的对象。
 
 # 适用场景
 
-- 创建新对象成本较大（如初始化需要占用较长的时间，占用太多的CPU资源或网络资源），新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对其成员变量稍作修改。
+- 创建新对象成本较大
+> （如初始化需要占用较长的时间，占用太多的CPU资源或网络资源），新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对其成员变量稍作修改。
 - 如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占用内存较少时，可以使用原型模式配合备忘录模式来实现。
 - 需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便。
 
@@ -31,9 +35,8 @@ UML类图
 
 ![](https://i.imgur.com/CmS8jlL.png)
 
-创建抽象原型类:
-
 ```java
+//抽象原型类
 @Data
 public abstract class Prototype {
     protected String attr;
@@ -41,11 +44,7 @@ public abstract class Prototype {
     @Override
     protected abstract Prototype clone();
 }
-```
-
-创建具体原型类:
-
-```java
+//具体原型类
 @Data
 public class ConcretePrototype extends Prototype {
     @Override
@@ -57,7 +56,7 @@ public class ConcretePrototype extends Prototype {
 }
 ```
 
-创建客户端类:
+客户端
 
 ```java
 public class Client {
@@ -71,7 +70,7 @@ public class Client {
 }
 ```
 
-输出结果:
+输出结果
 
 ```
 obj1 和 obj2 是同一个对象吗? false
@@ -113,7 +112,7 @@ public class ConcretePrototype implements Cloneable {
 }
 ```
 
-创建client类
+客户端
 
 ```java
 public class Client {
@@ -125,7 +124,7 @@ public class Client {
 }
 ```
 
-输出结果:
+输出结果
 
 ```
 obj1 和 obj2 是同一个对象吗? false
@@ -291,4 +290,6 @@ public class Client {
 }
 ```
 
-[返回设计模式概览](#理论学习/JAVA/设计模式概览)
+---
+👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/prototypePattern)
+👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)
