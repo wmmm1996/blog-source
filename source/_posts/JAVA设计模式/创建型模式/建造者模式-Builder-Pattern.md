@@ -155,4 +155,4 @@ User(username=小明, password=123456, age=20)
 
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/buildPattern)
-👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)
+👉 [返回设计模式概览](../../设计模式概览)
