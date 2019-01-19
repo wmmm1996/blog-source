@@ -2,9 +2,9 @@
 title: 观察者模式-Observer Pattern
 date: 2019-01-18 13:46:53
 tags:
-  - JAVA设计模式
+  - java
+  - 设计模式
 categories: 
-  - 理论学习
   - JAVA设计模式
 ---
 

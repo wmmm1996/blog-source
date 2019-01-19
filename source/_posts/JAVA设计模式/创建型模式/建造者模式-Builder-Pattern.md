@@ -2,9 +2,9 @@
 title: 建造者模式-Builder Pattern
 date: 2019-01-15 16:01:37
 tags:
-  - JAVA设计模式
+  - java
+  - 设计模式
 categories: 
-  - 理论学习
   - JAVA设计模式
 ---
 
@@ -161,4 +161,4 @@ public class Test {
 User(username=小明, password=123456, age=20)
 ```
 
-[返回设计模式概览](#理论学习/JAVA设计模式/设计模式概览)
+[返回设计模式概览](#JAVA设计模式/设计模式概览)

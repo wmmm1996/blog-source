@@ -2,9 +2,9 @@
 title: 单例模式-Singleton Pattern
 date: 2019-01-15 10:25:04
 tags:
-  - JAVA设计模式
+  - java
+  - 设计模式
 categories: 
-  - 理论学习
   - JAVA设计模式
 ---
 
@@ -187,4 +187,4 @@ public enum Singleton {
 }
 ```
 
-[返回设计模式概览](#理论学习/JAVA设计模式/设计模式概览)
+[返回设计模式概览](#JAVA设计模式/设计模式概览)
