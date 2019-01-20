@@ -113,6 +113,65 @@ public class Test {
 - 增加了系统的实现难度
 > 由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、反射等技术，增加了系统的实现难度。
 
+# 练习
+> 使用工厂方法模式设计一个程序来读取各种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器，如GIF图片读取器用于读取GIF格式的图片、JPG图片读取器用于读取JPG格式的图片。需充分考虑系统的灵活性和可扩展性。
+
+# UML类图
+
+![](https://i.imgur.com/JvS5qW4.png)
+
+```java
+//抽象读取器
+public abstract class AbstractReader {
+    public abstract void read();
+}
+//抽象读取器工厂
+public abstract class AbstractReaderFactory {
+    public abstract AbstractReader createReader();
+}
+//JPG读取器(具体读取器)
+public class JPGReader extends AbstractReader {
+    @Override
+    public void read() {
+        System.out.println("使用JPG读取器读取图片");
+    }
+}
+//GIF读取器(具体读取器)
+public class GIFReader extends AbstractReader {
+    @Override
+    public void read() {
+        System.out.println("使用GIF读取器读取图片");
+    }
+}
+//JPG读取器工厂(具体工厂)
+public class JPGReaderFactory extends AbstractReaderFactory {
+    @Override
+    public AbstractReader createReader() {
+        return new JPGReader();
+    }
+}
+//GIF读取器工厂(具体工厂)
+public class GIFReaderFactory extends AbstractReaderFactory {
+    @Override
+    public AbstractReader createReader() {
+        return new GIFReader();
+    }
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        AbstractReaderFactory readerFactory = new JPGReaderFactory();
+        readerFactory.createReader().read();
+        readerFactory = new GIFReaderFactory();
+        readerFactory.createReader().read();
+    }
+}
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/factoryMethodPattern)
 👉 [返回设计模式概览](../../设计模式概览)

@@ -290,6 +290,89 @@ public class Client {
 }
 ```
 
+# 练习
+> 设计并实现一个客户类Customer，其中包含一个名为客户地址的成员变量，客户地址的类型为Address，用浅克隆和深克隆分别实现Customer对象的复制并比较这两种克隆方式的异同。
+
+```java
+//客户
+@Data
+public class Customer implements Cloneable, Serializable {
+    private String name;
+    private String gender;
+    private Address address;
+
+    @Override
+    protected Customer clone() throws CloneNotSupportedException {
+        try {
+            return (Customer) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //使用序列化进行深拷贝
+    public Customer deepClone() throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(this);
+
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        return (Customer) ois.readObject();
+    }
+}
+//地址
+@Data
+public class Address implements Serializable {
+    private String country;
+    private String province;
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) throws CloneNotSupportedException, IOException, ClassNotFoundException {
+        Customer customer = new Customer();
+        Address address = new Address();
+        customer.setName("Cherry");
+        customer.setGender("male");
+        address.setCountry("USA");
+        address.setProvince("California");
+        customer.setAddress(address);
+
+        //浅拷贝
+        Customer clone1 = customer.clone();
+        System.out.println("----------浅拷贝-------");
+        System.out.println("客户是否相同? " + (customer == clone1));
+        System.out.println("地址是否相同? " + (customer.getAddress() == clone1.getAddress()));
+
+        System.out.println("-----------------------------");
+        //深拷贝
+        Customer clone2 = customer.deepClone();
+        System.out.println("----------深拷贝-------");
+        System.out.println("客户是否相同? " + (customer == clone2));
+        System.out.println("地址是否相同? " + (customer.getAddress() == clone2.getAddress()));
+
+    }
+}
+```
+
+输出结果:
+
+```
+----------浅拷贝-------
+客户是否相同? false
+地址是否相同? true
+----------深拷贝-------
+客户是否相同? false
+地址是否相同? false
+```
+
+> 如果不继承Cloneable接口,将会抛出java.lang.CloneNotSupportedException
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/prototypePattern)
 👉 [返回设计模式概览](../../设计模式概览)
