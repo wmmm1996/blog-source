@@ -143,4 +143,4 @@ public class Test {
 
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/abstractFactoryPattern)
-👉 [返回设计模式概览](#JAVA设计模式/设计模式概览)
+👉 [返回设计模式概览](../../设计模式概览)
