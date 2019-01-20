@@ -141,6 +141,122 @@ public class Test {
 - 开闭原则的倾斜性
 > 增加新的工厂和产品族容易，增加新的产品等级结构麻烦
 
+# 练习
+> Sunny软件公司欲推出一款新的手机游戏软件，该软件能够支持Symbian、Android和Windows Mobile等多个智能手机操作系统平台，针对不同的手机操作系统，该游戏软件提供了不同的游戏操作控制(OperationController)类和游戏界面控制(InterfaceController)类，并提供相应的工厂类来封装这些类的初始化过程。软件要求具有较好的扩展性以支持新的操作系统平台，为了满足上述需求，试采用抽象工厂模式对其进行设计。
+
+```java
+//游戏操作控制
+public abstract class OperationControl {
+    public abstract void operation();
+}
+//游戏界面控制
+public abstract class InterfaceControl {
+    public abstract void interfase();
+}
+//抽象操作控制类工厂
+public abstract class OperationController {
+    public abstract OperationControl symbian();
+    public abstract OperationControl android();
+    public abstract OperationControl windowsMobile();
+}
+//抽象界面控制类工厂
+public abstract class InterfaceController {
+    public abstract InterfaceControl symbian();
+    public abstract InterfaceControl android();
+    public abstract InterfaceControl windowsMobile();
+}
+//具体产品
+public class SymbianInterfaceControl extends InterfaceControl {
+    @Override
+    public void interfase() {
+        System.out.println("塞班界面控制");
+    }
+}
+public class SymbianOperationControl extends OperationControl {
+    @Override
+    public void operation() {
+        System.out.println("塞班操作控制");
+    }
+}
+public class AndroidInterfaceControl extends InterfaceControl {
+    @Override
+    public void interfase() {
+        System.out.println("安卓界面控制");
+    }
+}public class AndroidOperationControl extends OperationControl {
+     @Override
+     public void operation() {
+         System.out.println("安卓操作控制");
+     }
+ }
+ public class WindowsMobileInterfaceControl extends InterfaceControl {
+     @Override
+     public void interfase() {
+         System.out.println("windows phone界面控制");
+     }
+ }
+
+ public class WindowsMobileOperationControl extends OperationControl {
+     @Override
+     public void operation() {
+         System.out.println("windows phone操作控制");
+     }
+ }
+ //具体工厂
+ public class ConcreateOperationController extends OperationController {
+     @Override
+     public OperationControl symbian() {
+         return new SymbianOperationControl();
+     }
+ 
+     @Override
+     public OperationControl android() {
+         return new AndroidOperationControl();
+     }
+ 
+     @Override
+     public OperationControl windowsMobile() {
+         return new WindowsMobileOperationControl();
+     }
+ }
+ public class ConcreateInterfaceController extends InterfaceController {
+     @Override
+     public InterfaceControl symbian() {
+         return new SymbianInterfaceControl();
+     }
+ 
+     @Override
+     public InterfaceControl android() {
+         return new AndroidInterfaceControl();
+     }
+ 
+     @Override
+     public InterfaceControl windowsMobile() {
+         return new WindowsMobileInterfaceControl();
+     }
+ }
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        InterfaceController interfaceController = new ConcreateInterfaceController();
+        interfaceController.android().interfase();
+        OperationController operationController = new ConcreateOperationController();
+        operationController.symbian().operation();
+    }
+}
+```
+
+输出结果:
+
+```
+安卓界面控制
+塞班操作控制
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/abstractFactoryPattern)
 👉 [返回设计模式概览](../../设计模式概览)

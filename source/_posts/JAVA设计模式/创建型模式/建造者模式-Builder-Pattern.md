@@ -153,6 +153,97 @@ public class Test {
 User(username=小明, password=123456, age=20)
 ```
 
+# 练习
+> Sunny软件公司欲开发一个视频播放软件，为了给用户使用提供方便，该播放软件提供多种界面显示模式，如完整模式、精简模式、记忆模式、网络模式等。在不同的显示模式下主界面的组成元素有所差异，如在完整模式下将显示菜单、播放列表、主窗口、控制条等，在精简模式下只显示主窗口和控制条，而在记忆模式下将显示主窗口、控制条、收藏列表等。尝试使用建造者模式设计该软件。
+
+```java
+//抽象建造者
+public abstract class AbstractBuilder {
+    protected static StringBuffer sb = new StringBuffer(); //模拟视频播放软件
+
+    public abstract void memu(); //菜单
+    public abstract void playlist(); //播放列表
+    public abstract void mainWindow(); //主窗口
+    public abstract void controlStrip(); //控制条
+    public abstract void favoritesList(); //收藏列表
+
+    //完整模式
+    public static StringBuffer full(AbstractBuilder builder) {
+        builder.memu();
+        builder.playlist();
+        builder.mainWindow();
+        builder.controlStrip();
+        return sb;
+    }
+
+    //精简模式
+    public static StringBuffer simplify(AbstractBuilder builder) {
+        builder.mainWindow();
+        builder.controlStrip();
+        return sb;
+    }
+
+    //记忆模式
+    public static StringBuffer memory(AbstractBuilder builder) {
+        builder.mainWindow();
+        builder.controlStrip();
+        builder.favoritesList();
+        return sb;
+    }
+
+}
+//具体建造者
+public class RealBuilder extends AbstractBuilder {
+    @Override
+    public void memu() {
+        sb.append("菜单,");
+    }
+
+    @Override
+    public void playlist() {
+        sb.append("播放列表,");
+    }
+
+    @Override
+    public void mainWindow() {
+        sb.append("主窗口,");
+    }
+
+    @Override
+    public void controlStrip() {
+        sb.append("控制条,");
+    }
+
+    @Override
+    public void favoritesList() {
+        sb.append("收藏列表,");
+    }
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        AbstractBuilder builder = new RealBuilder();
+        AbstractBuilder.full(builder);
+        System.out.println(AbstractBuilder.sb.toString()); //完整模式
+
+        AbstractBuilder.sb = new StringBuffer(); //清空原来的产品
+        AbstractBuilder.memory(builder);
+        System.out.println(AbstractBuilder.sb.toString()); //记忆模式
+    }
+}
+```
+
+输出结果:
+
+```
+菜单,播放列表,主窗口,控制条,
+主窗口,控制条,收藏列表,
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/buildPattern)
 👉 [返回设计模式概览](../../设计模式概览)
