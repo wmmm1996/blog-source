@@ -139,6 +139,86 @@ public class Client {
 - 运行时间变长
 > 为了使对象可以共享，享元模式需要将享元对象的部分状态外部化，而读取外部状态将使得运行时间变长。
 
+# 练习
+> Sunny软件公司欲开发一个多功能文档编辑器，在文本文档中可以插入图片、动画、视频等多媒体资料，为了节约系统资源，相同的图片、动画和视频在同一个文档中只需保存一份，但是可以多次重复出现，而且它们每次出现时位置和大小均可不同。试使用享元模式设计该文档编辑器。
+
+```java
+//抽象享元
+@Data
+public abstract class AbstractMediaData {
+    protected int x;
+    protected int y;
+
+    public abstract String getName();
+
+    public void display() {
+        System.out.println("我是" + this.getName() + ",我的坐标 : " + x + "," + y);
+    }
+}
+public class GIFMediaData extends AbstractMediaData {
+    @Override
+    public String getName() {
+        return "动画";
+    }
+}
+public class ImageMediaData extends AbstractMediaData {
+    @Override
+    public String getName() {
+        return "图像";
+    }
+}
+public class VideoMediaData extends AbstractMediaData {
+    @Override
+    public String getName() {
+        return "视频";
+    }
+}
+//享元工厂
+public class MediaDataFactory {
+    private static Hashtable<String, AbstractMediaData> ht; //使用Hashtable来存储享元对象，充当享元池
+
+    private MediaDataFactory() {
+    }
+
+    static {
+        ht = new Hashtable<>();
+        ht.put("image", new ImageMediaData());
+        ht.put("video", new VideoMediaData());
+        ht.put("gif", new GIFMediaData());
+    }
+
+    public static AbstractMediaData get(String key) {
+        return ht.get(key);
+    }
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        AbstractMediaData gif = MediaDataFactory.get("gif");
+        gif.setX(10);
+        gif.setY(100);
+        gif.display();
+        AbstractMediaData gif1 = MediaDataFactory.get("gif");
+        gif1.setX(5);
+        gif1.setY(5);
+        System.out.println("是否是同一个动画 : " + (gif == gif1));
+        gif1.display();
+    }
+}
+```
+
+输出结果:
+
+```
+我是动画,我的坐标 : 10,100
+是否是同一个动画 : true
+我是动画,我的坐标 : 5,5
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/flyweightPattern)
 👉 [返回设计模式概览](../../设计模式概览)

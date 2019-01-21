@@ -176,6 +176,97 @@ public class Client {
 - 可能导致系统陷入死循环
 > 如果建链不当，可能会造成循环调用，将导致系统陷入死循环。
 
+# 练习
+> Sunny软件公司的OA系统需要提供一个假条审批模块：如果员工请假天数小于3天，主任可以审批该假条；如果员工请假天数大于等于3天，小于10天，经理可以审批；如果员工请假天数大于等于10天，小于30天，总经理可以审批；如果超过30天，总经理也不能审批，提示相应的拒绝信息。试用职责链模式设计该假条审批模块。
+
+## UML类图
+
+![](https://i.imgur.com/hW1GIPR.png)
+
+```java
+//抽象责任链
+@AllArgsConstructor
+public abstract class AbstractHandler {
+    protected AbstractHandler next; //责任链下一个
+    public abstract void handle(Staff staff);
+}
+//具体责任链处理者
+public class Director extends AbstractHandler {
+    public Director(AbstractHandler next) {
+        super(next);
+    }
+
+    @Override
+    public void handle(Staff staff) {
+        if (staff.getDay() < 3) {
+            System.out.println("主任批了,请假天数 : " + staff.getDay());
+        } else {
+            this.next.handle(staff); //处理不了，给下一个责任人
+        }
+    }
+}
+public class Manager extends AbstractHandler {
+    public Manager(AbstractHandler next) {
+        super(next);
+    }
+
+    @Override
+    public void handle(Staff staff) {
+        if (staff.getDay() >= 3 && staff.getDay() < 10) {
+            System.out.println("经理批了,请假天数 : " + staff.getDay());
+        } else {
+            this.next.handle(staff);
+        }
+    }
+}
+public class GeneralManager extends AbstractHandler {
+    public GeneralManager(AbstractHandler next) {
+        super(next);
+    }
+
+    @Override
+    public void handle(Staff staff) {
+        if (staff.getDay() >= 10 && staff.getDay() < 30) {
+            System.out.println("总经理批了,请假天数 : " + staff.getDay());
+        } else {
+            System.out.println("天数太长了,批不了,请假天数 : " + staff.getDay());
+        }
+    }
+}
+//请假条(请求对象)
+@Data
+public class Staff {
+    private String name; //员工姓名
+    private int day; //请假天数
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        //创建责任链
+        Director director = new Director(new Manager(new GeneralManager(null)));
+        Staff staff = new Staff();
+        staff.setName("小明");
+        staff.setDay(24);
+        Staff staff1 = new Staff();
+        staff1.setName("小红");
+        staff1.setDay(60);
+        director.handle(staff);
+        director.handle(staff1);
+    }
+}
+```
+
+输出结果:
+
+```
+总经理批了,请假天数 : 24
+天数太长了,批不了,请假天数 : 60
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/chainOfResponsibilityPattern)
 👉 [返回设计模式概览](../../设计模式概览)
