@@ -171,6 +171,107 @@ class AsusLaptop extends Laptop {
 - 违背单一职责原则
 > 新增类型或新增品牌都会导致第 3 级目录结构的变化。
 
+# 练习
+> Sunny软件公司欲开发一个数据转换工具，可以将数据库中的数据转换成多种文件格式，例如txt、xml、pdf等格式，同时该工具需要支持多种不同的数据库。试使用桥接模式对其进行设计。
+
+```java
+//模拟数据库取数据
+public interface CRUDType {
+    String get();
+}
+//模拟导出
+public abstract class Export {
+    protected CRUDType crudType;
+
+    public Export(CRUDType crudType) {
+        this.crudType = crudType;
+    }
+
+    /**
+     * 定义导出方法
+     */
+    public abstract void export();
+}
+//mysql数据库类型
+public class MysqlType implements CRUDType {
+    @Override
+    public String get() {
+        return "mysql取数据";
+    }
+}
+//oracle数据库类型
+public class OracleType implements CRUDType {
+    @Override
+    public String get() {
+        return "oracle取数据";
+    }
+}
+//PG数据库类型
+public class PGType implements CRUDType {
+    @Override
+    public String get() {
+        return "PG取数据";
+    }
+}
+//PDF导出
+public class PDFExport extends Export {
+    public PDFExport(CRUDType crudType) {
+        super(crudType);
+    }
+
+    @Override
+    public void export() {
+        String data = this.crudType.get();
+        System.out.println("导出PDF : " + data);
+    }
+}
+//TXT导出
+public class TXTExport extends Export {
+    public TXTExport(CRUDType crudType) {
+        super(crudType);
+    }
+
+    @Override
+    public void export() {
+        String data = this.crudType.get();
+        System.out.println("导出TXT : " + data);
+    }
+}
+//XML导出
+public class XMLExport extends Export {
+    public XMLExport(CRUDType crudType) {
+        super(crudType);
+    }
+
+    @Override
+    public void export() {
+        String data = this.crudType.get();
+        System.out.println("导出XML : " + data);
+    }
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        Export export = new XMLExport(new MysqlType());
+        export.export();
+
+        export = new PDFExport(new PGType());
+        export.export();
+    }
+}
+```
+
+输出结果:
+
+```
+导出XML : mysql取数据
+导出PDF : PG取数据
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/bridgePattern)
 👉 [返回设计模式概览](../../设计模式概览)
