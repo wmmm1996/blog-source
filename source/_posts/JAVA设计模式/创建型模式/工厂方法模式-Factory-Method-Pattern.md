@@ -172,6 +172,13 @@ public class Client {
 }
 ```
 
+输出结果:
+
+```
+使用JPG读取器读取图片
+使用GIF读取器读取图片
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/factoryMethodPattern)
 👉 [返回设计模式概览](../../设计模式概览)

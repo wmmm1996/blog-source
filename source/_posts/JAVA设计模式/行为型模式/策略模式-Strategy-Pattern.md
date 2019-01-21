@@ -132,6 +132,64 @@ VIP票：
 - 无法同时在客户端使用多个策略类
 > 也就是说，在使用策略模式时，客户端每次只能使用一个策略类，不支持使用一个策略类完成部分功能后再使用另一个策略类来完成剩余功能的情况。
 
+# 扩展
+
+## 策略枚举
+> 使用策略枚举实现简单的计算器
+
+```java
+public enum Calculator {
+    /**
+     * 加
+     */
+    ADD{
+        @Override
+        public double calculate(double d1, double d2) {
+            return d1 + d2;
+        }
+    },
+    /**
+     * 减
+     */
+    SUB {
+        @Override
+        public double calculate(double d1, double d2) {
+            return d1 - d2;
+        }
+    },
+    /**
+     * 乘
+     */
+    MULTY {
+        @Override
+        public double calculate(double d1, double d2) {
+            return d1 * d2;
+        }
+    },
+    /**
+     * 除法
+     */
+    DIVIDE {
+        @Override
+        public double calculate(double d1, double d2) {
+            return d1 / d2;
+        }
+    };
+
+    public abstract double calculate(double d1,double d2);
+}
+```
+
+测试类:
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        System.out.println("1.1+1.2=" + Calculator.ADD.calculate(1.1, 1.2));
+    }
+}
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/strategyPattern)
 👉 [返回设计模式概览](../../设计模式概览)

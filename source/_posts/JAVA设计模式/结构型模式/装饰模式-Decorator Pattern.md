@@ -148,6 +148,85 @@ public class Client {
 - 程序易出错，且排错较困难
 > 装饰模式提供了一种比继承更加灵活机动的解决方案，但同时也意味着比继承更加易于出错，排错也很困难，对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为繁琐。
 
+# 练习
+> Sunny软件公司欲开发了一个数据加密模块，可以对字符串进行加密。最简单的加密算法通过对字母进行移位来实现，同时还提供了稍复杂的逆向输出加密，还提供了更为高级的求模加密。用户先使用最简单的加密算法对字符串进行加密，如果觉得还不够可以对加密之后的结果使用其他加密算法进行二次加密，当然也可以进行第三次加密。试使用装饰模式设计该多重加密系统。
+
+## UML类图
+
+![](https://i.imgur.com/P0SEAjo.png)
+
+```java
+//抽象构件
+public interface IEncrypt {
+    String encrypt(String data);
+}
+//抽象加密装饰者
+@AllArgsConstructor
+public class EncryptDecorator implements IEncrypt {
+    protected IEncrypt encrypt;
+
+    @Override
+    public String encrypt(String data) {
+        return encrypt.encrypt(data);
+    }
+}
+//简单加密
+public class SimpleEncrypt implements IEncrypt {
+    @Override
+    public String encrypt(String data) {
+        return data + " + 简单加密";
+    }
+}
+//逆向输出加密
+public class ReverseEncryptDecorator extends EncryptDecorator {
+    public ReverseEncryptDecorator(IEncrypt encrypt) {
+        super(encrypt);
+    }
+
+    @Override
+    public String encrypt(String data) {
+        data = this.encrypt.encrypt(data);
+        return data + " + 逆向输出加密";
+    }
+}
+//求模加密
+public class ModelEncryptDecorator extends EncryptDecorator {
+    public ModelEncryptDecorator(IEncrypt encrypt) {
+        super(encrypt);
+    }
+
+    @Override
+    public String encrypt(String data) {
+        data = encrypt.encrypt(data);
+        return data + " + 求模加密";
+    }
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        IEncrypt simpleEncrypt = new SimpleEncrypt();
+        IEncrypt reverseEncryptDecorator = new ReverseEncryptDecorator(simpleEncrypt); //逆向加密
+
+        System.out.println(reverseEncryptDecorator.encrypt("两次加密"));
+
+        //多次加密
+        IEncrypt modelEncryptDecorator = new ModelEncryptDecorator(reverseEncryptDecorator);
+        System.out.println(modelEncryptDecorator.encrypt("试试多次加密"));
+    }
+}
+```
+
+输出结果:
+
+```
+两次加密 + 简单加密 + 逆向输出加密
+试试多次加密 + 简单加密 + 逆向输出加密 + 求模加密
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/decoratorPattern)
 👉 [返回设计模式概览](../../设计模式概览)

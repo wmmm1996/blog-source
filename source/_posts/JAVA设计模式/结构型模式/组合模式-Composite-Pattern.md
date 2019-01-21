@@ -258,6 +258,141 @@ folder3.killVirus();
 - 在增加新构件时很难对容器中的构件类型进行限制
 > 有时候我们希望一个容器中只能有某些特定类型的对象，例如在某个文件夹中只能包含文本文件，使用组合模式时，不能依赖类型系统来施加这些约束，因为它们都来自于相同的抽象层，在这种情况下，必须通过在运行时进行类型检查来实现，这个实现过程较为复杂
 
+# 练习
+> Sunny软件公司欲开发一个界面控件库，界面控件分为两大类，一类是单元控件，例如按钮、文本框等，一类是容器控件，例如窗体、中间面板等，试用组合模式设计该界面控件库。
+
+## UML类图
+
+![](https://i.imgur.com/moPNZYT.png)
+
+```java
+//抽象构件
+public interface IComponent {
+    void add(IComponent component);
+    void remove(IComponent component);
+    /**
+     * 模拟控件方法
+     */
+    void show();
+}
+//按钮(叶子构件)
+public class Button implements IComponent {
+    @Override
+    public void add(IComponent component) {
+
+    }
+
+    @Override
+    public void remove(IComponent component) {
+
+    }
+
+    @Override
+    public void show() {
+        System.out.println("展示按钮");
+    }
+}
+//文本框(叶子构件)
+public class TxtField implements IComponent {
+    @Override
+    public void add(IComponent component) {
+
+    }
+
+    @Override
+    public void remove(IComponent component) {
+
+    }
+
+    @Override
+    public void show() {
+        System.out.println("展示文本框");
+    }
+}
+//窗体(容器构件)
+public class Window implements IComponent {
+    private List<IComponent> componentList = new ArrayList<>();
+
+    @Override
+    public void add(IComponent component) {
+        componentList.add(component);
+    }
+
+    @Override
+    public void remove(IComponent component) {
+        componentList.remove(component);
+    }
+
+    @Override
+    public void show() {
+        System.out.println("展示窗体");
+        componentList.forEach(IComponent::show);
+    }
+}
+//中间面板(容器构件)
+public class Panel implements IComponent {
+    private List<IComponent> componentList = new ArrayList<>();
+
+    @Override
+    public void add(IComponent component) {
+        componentList.add(component);
+    }
+
+    @Override
+    public void remove(IComponent component) {
+        componentList.remove(component);
+    }
+
+    @Override
+    public void show() {
+        System.out.println("展示中间面板");
+        componentList.forEach(IComponent::show);
+    }
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        IComponent component1 = new Button();
+        IComponent component2 = new TxtField();
+        IComponent component3 = new Window();
+        IComponent component4 = new Panel();
+
+        component3.add(component1); //添加按钮
+        component3.add(component1); //添加按钮
+        component3.add(component2); //添加文本框
+        component3.show();
+
+        System.out.println("===============================");
+
+        component4.add(component1); //添加按钮
+        component4.add(component3); //添加窗体
+        component4.show();
+    }
+}
+```
+
+输出结果:
+
+```
+展示窗体
+展示按钮
+展示按钮
+展示文本框
+===============================
+展示中间面板
+展示按钮
+展示窗体
+展示按钮
+展示按钮
+展示文本框
+```
+
+> 容器构件里面也可以放容器构件,达到多层树型结构
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/compositePattern)
 👉 [返回设计模式概览](../../设计模式概览)

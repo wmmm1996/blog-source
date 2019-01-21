@@ -107,6 +107,118 @@ public class Client {
 - 工厂角色无法形成基于继承的等级结构
 > 这是由于简单工厂模式使用了静态工厂方法
 
+# 练习
+> 使用简单工厂模式设计一个可以创建不同几何形状（如圆形、方形和三角形等）的绘图工具，每个几何图形都具有绘制draw()和擦除erase()两个方法，要求在绘制不支持的几何图形时，提示一个UnSupportedShapeException。
+
+## UML类图
+
+![](https://i.imgur.com/ONC2sEF.png)
+
+## 代码
+
+```java
+//几何图形接口
+public interface Shape {
+    //绘制
+    void draw();
+    //擦除
+    void erase();
+}
+//简单工厂
+public class ShapeFactory {
+    public static Shape createShape(String shapeStr) {
+        Shape shape;
+        switch (shapeStr) {
+            case "circle": {
+                shape = new CircleShape();
+            }
+            break;
+            case "square": {
+                shape = new SquareShape();
+            }
+            break;
+            case "triangle": {
+                shape = new TriangleShape();
+            }
+            break;
+            default:
+                throw new UnSupportedShapeException("不支持的几何图形");
+        }
+        return shape;
+    }
+}
+//具体类
+public class CircleShape implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("绘制圆形");
+    }
+
+    @Override
+    public void erase() {
+        System.out.println("擦除圆形");
+    }
+}
+public class SquareShape implements Shape {
+
+    @Override
+    public void draw() {
+        System.out.println("绘制方形");
+    }
+
+    @Override
+    public void erase() {
+        System.out.println("擦除方形");
+    }
+}
+public class TriangleShape implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("绘制三角形");
+    }
+
+    @Override
+    public void erase() {
+        System.out.println("擦除三角形");
+    }
+}
+```
+
+建立一个UnSupportedShapeException
+
+```java
+public class UnSupportedShapeException extends RuntimeException {
+    public UnSupportedShapeException(String message) {
+        super(message);
+    }
+}
+```
+
+客户端
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        Shape circle = ShapeFactory.createShape("circle");
+        circle.draw();
+        circle.erase();
+        Shape shape = ShapeFactory.createShape("111");
+        shape.draw();
+        shape.erase();
+    }
+}
+```
+
+输出结果:
+
+```
+绘制圆形
+擦除圆形
+Exception in thread "main" simpleFactoryPattern.exercise.UnSupportedShapeException: 不支持的几何图形
+	at simpleFactoryPattern.exercise.ShapeFactory.createShape(ShapeFactory.java:25)
+	at simpleFactoryPattern.exercise.Client.main(Client.java:12)
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/simpleFactoryPattern)
 👉 [返回设计模式概览](../../设计模式概览)

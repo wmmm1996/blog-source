@@ -177,6 +177,73 @@ public class Adapter {
 - 过多的使用适配器，会让系统非常零乱，不易整体进行把握
 > 比如，明明看到调用的是A接口，其实内部被适配成了B接口的实现，一个系统如果太多出现这种情况，无异于一场灾难。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。
 
+# 练习
+> Sunny软件公司OA系统需要提供一个加密模块，将用户机密信息（如口令、邮箱等）加密之后再存储在数据库中，系统已经定义好了数据库操作类。为了提高开发效率，现需要重用已有的加密算法，这些算法封装在一些由第三方提供的类中，有些甚至没有源代码。试使用适配器模式设计该加密模块，实现在不修改现有类的基础上重用第三方加密方法。
+
+根据要求，模拟两个系统中已经存在的需要适配的类
+
+```java
+//已有的算法模块
+public class EncryptService {
+    public String encrypt(String s) {
+        System.out.println("调用了加密算法");
+        return "调用了加密算法" + s;
+    }
+}
+//已有的数据库操作类
+public class CRUDService {
+    public void save(String s) {
+        System.out.println("保存:" + s);
+    }
+}
+```
+
+开始适配:
+
+```java
+//目标类
+public interface Target {
+    /**
+     * 原来已有的方法
+     */
+    void save(String s);
+
+    /**
+     * 新增的加密保存方法
+     */
+    void encryptSave(String s);
+}
+public class CRUDAdapter extends CRUDService implements Target {
+
+    @Override
+    public void encryptSave(String s) {
+        EncryptService encryptService = new EncryptService();
+        String encrypt = encryptService.encrypt(s);
+        this.save(encrypt);
+    }
+}
+```
+
+客户端:
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        CRUDAdapter crudAdapter = new CRUDAdapter();
+        crudAdapter.save("用户1");
+        crudAdapter.encryptSave("用户2");
+    }
+}
+```
+
+输出结果:
+
+```
+保存:用户1
+调用了加密算法
+保存:调用了加密算法用户2
+```
+
 ---
 👉 [本文代码](https://github.com/gcdd1993/java-design-pattern/tree/master/src/main/java/adapterPattern)
 👉 [返回设计模式概览](../../设计模式概览)
