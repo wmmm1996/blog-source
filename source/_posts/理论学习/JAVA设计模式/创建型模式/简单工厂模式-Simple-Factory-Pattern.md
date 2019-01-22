@@ -5,6 +5,7 @@ tags:
   - java
   - 设计模式
 categories: 
+  - 理论学习
   - JAVA设计模式
 ---
 
