@@ -12,7 +12,7 @@ spring cloud feign使用okhttp3<!-- more -->
 
 maven
 
-```java
+```xml
 <dependency>
     <groupId>io.github.openfeign</groupId>
     <artifactId>feign-okhttp</artifactId>
@@ -21,7 +21,7 @@ maven
 
 配置文件
 
-```java
+```properties
 feign.httpclient.enabled=false
 feign.okhttp.enabled=true
 ```
