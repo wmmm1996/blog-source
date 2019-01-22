@@ -9,7 +9,7 @@ categories:
 ---
 
 # 总览
-> 在本文中，我们将深入探讨Jackson注解。我们将学习到如何使用现有注解，如何创建自定义注释以及如何禁用它们。
+> 在本文中，我们将深入探讨Jackson注解。我们将学习到如何**使用现有注解**，如何**创建自定义注解**以及如何**禁用注解**。
 
 <!-- more -->
 
@@ -17,9 +17,9 @@ categories:
 > 首先,让我们看一下序列化注解
 
 ## @JsonAnyGetter
-> `@JsonAnyGetter`注解允许使用Map字段作为标准属性。
+> `@JsonAnyGetter`注解允许Map类型字段当成普通属性一样序列化。
 
-下面是一个快速入门的示例,`ExtendableBean`实体具有`name`属性和一组以键/值对形式的可扩展属性:
+下面是一个快速入门的示例，`ExtendableBean`实体具有`name`属性和一组以 Map 形式的可扩展属性：
 
 ```java
 public class ExtendableBean {
@@ -33,7 +33,7 @@ public class ExtendableBean {
 }
 ```
 
-当我们序列化这个实体的一个实例时,我们将Map中的所有键值作为标准的普通属性:
+当我们序列化这个实体的一个实例时，我们将 Map 中的所有键值作为标准的普通属性：
 
 ```json
 {
@@ -43,7 +43,7 @@ public class ExtendableBean {
 }
 ```
 
-用测试代码测试一下这个实体的序列化:
+用测试代码测试一下这个实体的序列化：
 
 ```java
 @Test
@@ -59,7 +59,7 @@ public void whenSerializingUsingJsonAnyGetter_thenCorrect() throws JsonProcessin
 }
 ```
 
-展示下输出结果:
+输出结果:
 
 ```json
 {
@@ -70,9 +70,9 @@ public void whenSerializingUsingJsonAnyGetter_thenCorrect() throws JsonProcessin
 ```
 
 ## @JsonGetter
-> `@JsonGetter`注解是`@JsonProperty`注解的替代，用于将指定的方法标记为getter方法。
+> `@JsonGetter`注解是`@JsonProperty`注解的替代，用于将指定的方法标记为`getter`方法。
 
-在以下示例中,我们将方法getTheName()指定为MyBean实体的name属性的getter方法:
+在以下示例中,我们将方法`getTheName()`指定为`MyBean`实体的`name`属性的`getter`方法:
 
 ```java
 public class MyBean {
@@ -86,7 +86,7 @@ public class MyBean {
 }
 ```
 
-以下是它在实践中的工作原理:
+测试代码:
 
 ```java
 @Test
@@ -112,7 +112,7 @@ public void whenSerializingUsingJsonGetter_thenCorrect() throws JsonProcessingEx
 ## @JsonPropertyOrder
 > `@JsonPropertyOrder`注释用于指定序列化的属性顺序。
 
-让我们为MyBean实体的属性设置自定义顺序：
+让我们为`MyBean`实体的属性设置自定义顺序：
 
 ```java
 @JsonPropertyOrder({ "name", "id" })
@@ -122,7 +122,7 @@ public class MyBean {
 }
 ```
 
-这是序列化的输出：
+这是序列化后的输出：
 
 ```json
 {
@@ -131,7 +131,7 @@ public class MyBean {
 }
 ```
 
-一个简单的测试:
+简单地测试下:
 
 ```java
 @Test
@@ -145,7 +145,7 @@ public void whenSerializingUsingJsonPropertyOrder_thenCorrect() throws JsonProce
 }
 ```
 
-输出结果:
+输出结果：
 
 ```json
 {
@@ -157,7 +157,7 @@ public void whenSerializingUsingJsonPropertyOrder_thenCorrect() throws JsonProce
 ## @JsonRawValue
 > `@JsonRawValue`用于指示Jackson完全按原样序列化属性。
 
-在下面的示例中,我们使用@JsonRawValue将一些自定义JSON嵌入为实体的值：
+在下面的示例中,我们使用`@JsonRawValue`将一些自定义JSON反序列化为实体：
 
 ```java
 @AllArgsConstructor
@@ -194,7 +194,7 @@ public void whenSerializingUsingJsonRawValue_thenCorrect() throws JsonProcessing
 }
 ```
 
-输出结果:
+输出结果：
 
 ```json
 {
@@ -208,7 +208,7 @@ public void whenSerializingUsingJsonRawValue_thenCorrect() throws JsonProcessing
 ## @JsonValue
 > `@JsonValue`表示应该用于序列化整个实例的单个方法。
 
-例如，在枚举中 - 我们使用@JsonValue注释getName，以便通过其名称序列化任何此类实体：
+例如，在枚举中我们使用`@JsonValue`注释`getName`，以便通过 name 属性序列化任何此类实体：
 
 ```java
 @AllArgsConstructor
@@ -228,7 +228,7 @@ public enum TypeEnumWithValue {
 }
 ```
 
-我们的测试：
+测试代码：
 
 ```java
 @Test
@@ -239,16 +239,16 @@ public void whenSerializingUsingJsonValue_thenCorrect() throws JsonParseExceptio
 }
 ```
 
-输出结果:
+输出结果：
 
 ```json
 "Type A"
 ```
 
 ## @JsonRootName
-> 如果启用了包装，则使用`@JsonRootName`注释来指定要使用的根包装器的名称。
+> 如果使用了包装，则使用`@JsonRootName`注释来指定要使用的根包装器的名称。
 
-包装意味着不是将用户序列化为类似于:
+不使用包装的情况下，例如会把用户序列化为：
 
 ```json
 {
@@ -257,7 +257,7 @@ public void whenSerializingUsingJsonValue_thenCorrect() throws JsonParseExceptio
 }
 ```
 
-它会像这样包裹起来:
+如果使用包装，将会把用户序列化为：
 
 ```json
 {
@@ -268,7 +268,7 @@ public void whenSerializingUsingJsonValue_thenCorrect() throws JsonParseExceptio
 }
 ```
 
-那么,让我们看一个例子:我们将使用`@JsonRootName`注释来指示这个潜在的包装器实体的名称：
+那么,让我们看一个例子，我们将使用`@JsonRootName`注释来指定这个带有包装器实体的名称：
 
 ```java
 @JsonRootName(value = "user")
@@ -278,7 +278,7 @@ public class UserWithRoot {
 }
 ```
 
-默认情况下，包装器的名称将是类的名称:`UserWithRoot`。通过使用注解，我们可以获得看起来更干净的用户：
+默认情况下，包装器的名称将是类的名称：`UserWithRoot`。通过使用注解，我们可以获得看起来更干净的用户：
 
 ```java
 @Test
@@ -309,7 +309,7 @@ public void whenSerializingUsingJsonRootName_thenCorrect() throws JsonProcessing
 ## @JsonSerialize
 > `@JsonSerialize`用于指示将使用自定义序列化程序来序列化实体。
 
-让我们看一个简单的例子 - 我们将使用@JsonSerialize使用CustomDateSerializer序列化eventDate属性：
+让我们看一个简单的例子，我们将使用`@JsonSerialize`，并指定`CustomDateSerializer`为序列化类来序列化`eventDate`属性：
 
 ```java
 @AllArgsConstructor
@@ -342,7 +342,7 @@ public class CustomDateSerializer extends StdSerializer<Date> {
 }
 ```
 
-让我们在测试中使用它们：
+测试一下：
 
 ```java
 @Test
@@ -374,9 +374,9 @@ public void whenSerializingUsingJsonSerialize_thenCorrect() throws JsonProcessin
 ## @JsonCreator
 > `@JsonCreator`注解用于调整反序列化中使用的构造函数/工厂。
 
-当我们需要反序列化一些与我们需要获得的目标实体不完全匹配的JSON时，它非常有用。
+当我们要反序列化的目标实体的字段名称跟现有的Json**字段名称不完全匹配**时使用。
 
-我们来看一个例子,例如我们需要反序列化以下JSON:
+我们来看一个例子，例如我们需要反序列化以下JSON：
 
 ```json
 {
@@ -385,7 +385,7 @@ public void whenSerializingUsingJsonSerialize_thenCorrect() throws JsonProcessin
 }
 ```
 
-但是,我们的目标实体中没有theName字段,只有一个name字段。现在,我们不想更改实体本身,我们可以使用`@JsonCreator`注解构造函数并使用`@JsonProperty`注解:
+但是，我们的目标实体中没有`theName`字段,只有一个`name`字段。现在,我们不想更改实体本身,我们可以使用`@JsonCreator`注解构造函数并使用`@JsonProperty`注解:
 
 ```java
 public class BeanWithCreator {
@@ -401,7 +401,7 @@ public class BeanWithCreator {
 }
 ```
 
-来测试下:
+测试代码:
 
 ```java
 @Test
@@ -418,7 +418,7 @@ public void whenDeserializingUsingJsonCreator_thenCorrect() throws IOException {
 ## @JacksonInject
 > `@JacksonInject`用于标识将从注入而不是从JSON数据获取其值的属性。
 
-在以下示例中,我们使用`@JacksonInject`来注入属性id:
+在以下示例中,我们使用`@JacksonInject`来注入属性id：
 
 ```java
 public class BeanWithInject {
@@ -429,7 +429,7 @@ public class BeanWithInject {
 }
 ```
 
-这是如何工作的:
+测试代码：
 
 ```java
 @Test
@@ -449,7 +449,7 @@ public void whenDeserializingUsingJsonInject_thenCorrect() throws IOException {
 ## @JsonAnySetter
 > `@JsonAnySetter`允许您灵活地使用Map作为标准属性。在反序列化时，JSON中的属性将简单地添加到Map中。
 
-让我们看看它是如何工作的,我们将使用`@JsonAnySetter`来反序列化实体`ExtendableBean`:
+使用`@JsonAnySetter`来反序列化实体`ExtendableBean`：
 
 ```java
 public class ExtendableBean {
@@ -463,7 +463,7 @@ public class ExtendableBean {
 }
 ```
 
-这是我们需要反序列化的JSON:
+这是我们需要反序列化的JSON：
 
 ```json
 {
@@ -473,7 +473,7 @@ public class ExtendableBean {
 }
 ```
 
-看看这一切如何联系在一起的:
+测试代码：
 
 ```java
 @Test
@@ -491,8 +491,8 @@ public void whenDeserializingUsingJsonAnySetter_thenCorrect() throws IOException
 
 ## @JsonSetter
 > `@JsonSetter`是`@JsonProperty`的替代品,用于将方法标记为setter方法。
-  
-当我们需要读取一些目标实体类与该数据不完全匹配的JSON数据时,非常有用,我们可以使用`@JsonSetter`让他们能匹配起来。
+
+当我们需要读取一些目标实体类与该数据不完全匹配的JSON数据时,我们可以使用`@JsonSetter`让他们能匹配起来。
 
 在下面的示例中,我们将指定方法`setTheName()`作为`MyBean`实体中`name`属性的`setter`：
 
@@ -508,7 +508,7 @@ public class MyBean {
 }
 ```
 
-现在,当我们需要反序列化一些JSON数据时,这非常有效：
+测试代码：
 
 ```java
 @Test
@@ -525,7 +525,7 @@ public void whenDeserializingUsingJsonSetter_thenCorrect() throws IOException {
 ## @JsonDeserialize
 > @JsonDeserialize用于指示使用自定义反序列化器。
 
-让我们看看它是如何发挥作用的,我们将使用`@JsonDeserialize`并自定义`CustomDateDeserializer`进行反序列化`eventDate`属性：
+使用`@JsonDeserialize`并自定义`CustomDateDeserializer`进行反序列化`eventDate`属性：
 
 ```java
 public class Event {
@@ -536,7 +536,7 @@ public class Event {
 }
 ```
 
-这是自定义反序列化器:
+自定义反序列化器：
 
 ```java
 public class CustomDateDeserializer extends StdDeserializer<Date> {
@@ -562,7 +562,7 @@ public class CustomDateDeserializer extends StdDeserializer<Date> {
 }
 ```
 
-测试一下:
+测试一下：
 
 ```java
 @Test
@@ -583,7 +583,7 @@ public void whenDeserializingUsingJsonDeserialize_thenCorrect() throws IOExcepti
 ## @JsonIgnoreProperties
 > `@JsonIgnoreProperties`是Jackson中最常见的注释之一,用于标记要在类级别忽略的属性或属性列表。
 
-让我们来看一个忽略序列化属性id的快速示例:
+忽略序列化属性id：
 
 ```java
 @JsonIgnoreProperties({ "id" })
@@ -593,7 +593,7 @@ public class BeanWithIgnore {
 }
 ```
 
-这是测试:
+测试代码：
 
 ```java
 @Test
@@ -610,7 +610,7 @@ public void whenSerializingUsingJsonIgnoreProperties_thenCorrect() throws JsonPr
 ## @JsonIgnore
 > `@JsonIgnore`注解用于标记要在字段级别忽略的属性。
 
-让我们使用`@JsonIgnore`来忽略序列化中的属性id:
+使用`@JsonIgnore`来忽略序列化中的属性id：
 
 ```java
 public class BeanWithIgnore {
@@ -621,7 +621,7 @@ public class BeanWithIgnore {
 }
 ```
 
-测试确保成功忽略了id:
+测试代码：
 
 ```java
 @Test
@@ -638,7 +638,7 @@ public void whenSerializingUsingJsonIgnoreProperties_thenCorrect() throws JsonPr
 ## @JsonIgnoreType
 > 被`@JsonIgnoreType`注解修饰的类型将忽略所有属性。
 
-让我们使用注释来标记要忽略的Name类型的所有属性:
+标记要忽略的 Name 类型的所有属性：
 
 ```java
 @AllArgsConstructor
@@ -655,7 +655,7 @@ public class User {
 }
 ```
 
-这是简单的测试，确保忽略正常工作:
+测试代码：
 
 ```java
 @Test
@@ -672,7 +672,7 @@ public void whenSerializingUsingJsonIgnoreType_thenCorrect() throws JsonProcessi
 }
 ```
 
-输出结果:
+输出结果：
 
 ```json
 {
@@ -681,9 +681,9 @@ public void whenSerializingUsingJsonIgnoreType_thenCorrect() throws JsonProcessi
 ```
 
 ## @JsonInclude
-> `@JsonInclud`e用于排除空/null/默认值的属性。
+> `@JsonInclude`用于排除空/null/默认值的属性。
 
-让我们看一个例子,从序列化中排除空值:
+从序列化中排除空值：
 
 ```java
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -694,7 +694,7 @@ public class MyBean {
 }
 ```
 
-这是完整的测试:
+测试代码：
 
 ```java
 @Test
@@ -712,7 +712,7 @@ public void whenSerializingUsingJsonInclude_thenCorrect() throws JsonProcessingE
 ## @JsonAutoDetect
 > `@JsonAutoDetect`用于改变可见级别。
 
-看一个简单的例子,让我们序列化私有属性:
+我们可以用来序列化私有属性：
 
 ```java
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -722,7 +722,7 @@ public class PrivateBean {
 }
 ```
 
-测试一下:
+测试一下：
 
 ```java
 @Test
@@ -738,13 +738,13 @@ public void whenSerializingUsingJsonAutoDetect_thenCorrect() throws JsonProcessi
 ```
 
 # Jackson多态类型处理注解
-> 接下来,让我们来看看Jackson多态类型处理注解:
+> 接下来,让我们来看看Jackson多态类型处理注解
 
 - `@JsonTypeInfo`用于标记序列化中包含的类型信息的详细信息。
 - `@JsonSubTypes`用于标记带注解类型的子类型。
 - `@JsonTypeName`用于定义用于带注解的类的逻辑类型名称。
 
-让我们看一个稍复杂的例子,使用三个`@JsonTypeInfo`,`@JsonSubTypes`和`@JsonTypeName`来序列化/反序列化实体Zoo：
+使用三个`@JsonTypeInfo`,`@JsonSubTypes`和`@JsonTypeName`来序列化/反序列化实体 Zoo ：
 
 ```java
 @AllArgsConstructor
@@ -785,7 +785,7 @@ public class Zoo {
 }
 ```
 
-当我们进行序列化时:
+测试代码：
 
 ```java
 @Test
@@ -802,7 +802,7 @@ public void whenSerializingPolymorphic_thenCorrect() throws JsonProcessingExcept
 }
 ```
 
-下是使用Dog序列化Zoo实例的结果:
+下是使用Dog序列化Zoo实例的结果：
 
 ```json
 {
@@ -814,7 +814,7 @@ public void whenSerializingPolymorphic_thenCorrect() throws JsonProcessingExcept
 }
 ```
 
-现在进行反序列化,让我们从以下JSON输入开始:
+现在进行反序列化,让我们从以下JSON输入开始：
 
 ```json
 {
@@ -825,7 +825,7 @@ public void whenSerializingPolymorphic_thenCorrect() throws JsonProcessingExcept
 }
 ```
 
-让我们看看它如何被反序列化到Zoo实例:
+让我们看看它如何被反序列化到Zoo实例：
 
 ```java
 @Test
@@ -889,7 +889,7 @@ public void whenUsingJsonProperty_thenCorrect() throws IOException {
 ## @JsonFormat
 > `@JsonFormat`注解可用于在序列化日期/时间值时指定格式。
   
-在下面的示例中,我们使用`@JsonFormat`来控制属性`eventDate`的日期格式:
+在下面的示例中,我们使用`@JsonFormat`来控制属性`eventDate`的日期格式：
 
 ```java
 public class Event {
@@ -901,7 +901,7 @@ public class Event {
 }
 ```
 
-下面是测试:
+下面是测试：
 
 ```java
 @Test
@@ -922,7 +922,7 @@ public void whenSerializingUsingJsonFormat_thenCorrect() throws JsonProcessingEx
 ## @JsonUnwrapped
 > `@JsonUnwrapped`用于定义序列化/反序列化时应解包/展平的值。
 
-让我们看看它是如何工作的,我们将使用`@JsonUnwrapped`来解包属性名称:
+让我们看看它是如何工作的,我们将使用`@JsonUnwrapped`来解包属性名称：
 
 ```java
 public class UnwrappedUser {
@@ -938,7 +938,7 @@ public class UnwrappedUser {
 }
 ```
 
-现在让我们序列化这个类的一个实例:
+现在让我们序列化这个类的一个实例：
 
 ```java
 @Test
@@ -953,7 +953,7 @@ public void whenSerializingUsingJsonUnwrapped_thenCorrect() throws JsonProcessin
 }
 ```
 
-以下是输出的样子,静态嵌套类的字段与其他字段一起展开:
+以下是输出的样子,静态嵌套类的字段与其他字段一起展开：
 
 ```json
 {
@@ -968,7 +968,7 @@ public void whenSerializingUsingJsonUnwrapped_thenCorrect() throws JsonProcessin
   
 下面这个示例将准确显示其工作原理,我们将使用`@JsonView`序列化`Item`实体的实例。
 
-让我们从Views开始:
+定义一个Views作为序列化视图，其中有两种视图类型`Public`和`Internal`：
 
 ```java
 public class Views {
@@ -977,7 +977,7 @@ public class Views {
 }
 ```
 
-现在这里是Item实体,使用Views:
+现在这里是Item实体,使用Views：
 
 ```java
 public class Item {
@@ -992,7 +992,7 @@ public class Item {
 }
 ```
 
-最后是完整的测试:
+最后是完整的测试：
 
 ```java
 @Test
@@ -1009,7 +1009,7 @@ public void whenSerializingUsingJsonView_thenCorrect() throws JsonProcessingExce
 }
 ```
 
-输出结果:
+输出结果：
 
 ```json
 {
@@ -1021,7 +1021,7 @@ public void whenSerializingUsingJsonView_thenCorrect() throws JsonProcessingExce
 ## @JsonManagedReference,@JsonBackReference
 > `@JsonManagedReference`和`@JsonBackReference`注解用于处理父/子关系并解决循环问题。
 
-在下面的示例中,我们使用`@JsonManagedReference`和`@JsonBackReference`来序列化`ItemWithRef`实体:
+在下面的示例中,我们使用`@JsonManagedReference`和`@JsonBackReference`来序列化`ItemWithRef`实体：
 
 ```java
 public class ItemWithRef {
@@ -1040,7 +1040,7 @@ public class UserWithRef {
 }
 ```
 
-测试:
+测试：
 
 ```java
 @Test
@@ -1059,7 +1059,7 @@ public void whenSerializingUsingJacksonReferenceAnnotation_thenCorrect() throws 
 }
 ```
 
-输出结果:
+输出结果：
 
 ```json
 {
@@ -1075,7 +1075,7 @@ public void whenSerializingUsingJacksonReferenceAnnotation_thenCorrect() throws 
 ## @JsonIdentityInfo
 > @JsonIdentityInfo用于指示在序列化/反序列化值时使用对象标识。例如，处理无限递归类型的问题。
   
-在下面的示例中,我们有一个`ItemWithIdentity`实体，它与`UserWithIdentity`实体具有双向关系:
+在下面的示例中,我们有一个`ItemWithIdentity`实体，它与`UserWithIdentity`实体具有双向关系：
 
 ```java
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -1092,7 +1092,7 @@ public class UserWithIdentity {
 }
 ```
 
-现在,让我们看看如何处理无限递归问题:
+现在,让我们看看如何处理无限递归问题：
 
 ```java
 @Test
@@ -1112,7 +1112,7 @@ public void whenSerializingUsingJsonIdentityInfo_thenCorrect()
 }
 ```
 
-这是序列化项目和用户的完整输出:
+这是序列化项目和用户的完整输出：
 
 ```json
 {
@@ -1131,7 +1131,7 @@ public void whenSerializingUsingJsonIdentityInfo_thenCorrect()
 ## @JsonFilter
 > `@JsonFilter`注解指定序列化期间要使用的过滤器。
 
-我们来看一个例子;首先，我们定义实体，并指定过滤器:
+首先，我们定义实体，并指定过滤器：
 
 ```java
 @JsonFilter("myFilter")
@@ -1141,7 +1141,7 @@ public class BeanWithFilter {
 }
 ```
 
-现在,在完整测试中,我们定义了过滤器,它排除了除序列化名称之外的所有其他属性:
+现在,在完整测试中,我们定义了过滤器,它只序列化`name`属性：
 
 ```java
 @Test
@@ -1163,7 +1163,7 @@ public void whenSerializingUsingJsonFilter_thenCorrect()
 }
 ```
 
-输出结果:
+输出结果：
 
 ```json
 {
@@ -1174,17 +1174,17 @@ public void whenSerializingUsingJsonFilter_thenCorrect()
 # 自定义Jackson注解
 > 接下来,让我们看看如何创建自定义Jackson注解
 
-我们可以使用`@JacksonAnnotationsInside`注解,如下例所示:
+使用`@JacksonAnnotationsInside`定义注解,如下例所示：
 
 ```java
-@Retention(RetentionPolicy.RUNTIME)
+    @Retention(RetentionPolicy.RUNTIME)
     @JacksonAnnotationsInside
     @JsonInclude(Include.NON_NULL)
     @JsonPropertyOrder({ "name", "id", "dateCreated" })
     public @interface CustomAnnotation {}
 ```
 
-现在，如果我们在实体上使用新注释:
+现在，如果我们在实体上使用新注释：
 
 ```java
 @CustomAnnotation
@@ -1195,7 +1195,7 @@ public class BeanWithCustomAnnotation {
 }
 ```
 
-我们可以看到它如何将现有注释组合成一个更简单的自定义注释，我们可以将其用作速记:
+它可以将一些重复的注解组合成为一个新的Jackson注解，增强代码复用：
 
 ```java
 @Test
@@ -1211,7 +1211,7 @@ public void whenSerializingUsingCustomAnnotation_thenCorrect() throws JsonProces
 }
 ```
 
-序列化过程的输出:
+序列化过程的输出：
 
 ```json
 {
@@ -1223,7 +1223,7 @@ public void whenSerializingUsingCustomAnnotation_thenCorrect() throws JsonProces
 # Jackson MixIn 注解
 > 接下来,让我们看看如何使用Jackson MixIn 注解。
   
-让我们使用MixIn注解。例如,忽略User类型的属性:
+忽略User类型的属性：
 
 ```java
 @AllArgsConstructor
@@ -1237,7 +1237,7 @@ public class MyMixInForIgnoreType {
 }
 ```
 
-来看看示例:
+测试代码：
 
 ```java
 @Test
@@ -1257,7 +1257,7 @@ public void whenSerializingUsingMixInAnnotation_thenCorrect() throws JsonProcess
 }
 ```
 
-输出结果:
+输出结果：
 
 ```json
 {"id":1,"itemName":"book","owner":null}
@@ -1268,9 +1268,9 @@ public void whenSerializingUsingMixInAnnotation_thenCorrect() throws JsonProcess
 ```
 
 ## 禁用Jackson注解
-> 最后 - 让我们看看我们如何禁用所有Jackson注解。
+> 最后，让我们看看我们如何禁用所有Jackson注解。
 
-我们可以通过禁用`MapperFeature.USE_ANNOTATIONS`来实现这一点，如下例所示:
+通过禁用`MapperFeature.USE_ANNOTATIONS`来实现：
 
 ```java
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -1282,7 +1282,7 @@ public class MyBean {
 }
 ```
 
-现在，在禁用注释后，这些应该没有效果，并且应该应用库的默认值:
+现在，在禁用注释后，这些应该没有效果，并且应该应用Jackson库的默认值：
 
 ```java
 @Test
@@ -1299,13 +1299,13 @@ public void whenDisablingAllAnnotations_thenAllDisabled() throws IOException {
 }
 ```
 
-禁用注释之前序列化的结果:
+禁用注释之前序列化的结果：
 
 ```json
 {"id":1}
 ```
 
-禁用注解之后序列化的结果:
+禁用注解之后序列化的结果：
 
 ```json
 {
@@ -1315,3 +1315,7 @@ public void whenDisablingAllAnnotations_thenAllDisabled() throws IOException {
 ```
 
 # 总结
+> 本教程深入探讨了 Jackson 的注解，看完之后你应该可以正确使用 Jackson 的注解了。
+
+---
+👉 [本文代码](https://github.com/gcdd1993/Jackson-Guide-With-Samples/tree/master/src/main/java/com/gcdd/jacksonGuide/jacksonAnnotationExamples)
