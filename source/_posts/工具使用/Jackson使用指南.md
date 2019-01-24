@@ -7,8 +7,6 @@ categories:
   - 工具使用
 ---
 
-> 原教程链接👉 [Jackson JSON Tutorial](https://www.baeldung.com/jackson)
-
 从事JAVA开发工作以来,一直都离不开Jackson的序列化反序列化,对于Jackson的使用也一直处于够用但不深入的状态，下面是日常使用过程中对Jackson的总结。
 
 <!-- more -->
@@ -899,3 +897,4 @@ List<Car> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<
 
 ---
 👉 [代码仓库](https://github.com/gcdd1993/Jackson-Guide-With-Samples)
+👉 [Jackson JSON Tutorial](https://www.baeldung.com/jackson)
