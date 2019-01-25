@@ -9,7 +9,7 @@ categories:
 
 记录一下，在开发过程中接触到的一些PG数据库常用操作，以备不时之需。<!-- more -->
 
-# 1.全量迁移
+# 全量迁移
 
 - 备份数据
 
@@ -27,13 +27,13 @@ psql -h <ip> -U <username> -d <database> -f 20180704_dbpe.sql
 
 【注意点】该迁移操作会覆盖原来的数据库，所以最好创建一个新库。
 
-# 2.列出所有表名和数据库名
+# 列出所有表名和数据库名
 
-```bash
+```sql
 select tablename from pg_tables where schemaname ='public';
 ```
 
-# 3. PostgreSQL 中 有时候想删除数据库（drop database swiftliveqaapi;），发现提示“ERROR:  database "xxxxxx" is being accessed by other users DETAIL:  There are 30 other sessions using the database.”
+# PostgreSQL 中 有时候想删除数据库（drop database swiftliveqaapi;），发现提示“ERROR:  database "xxxxxx" is being accessed by other users DETAIL:  There are 30 other sessions using the database.”
 
 ```bash
 用psql 登录进入， 执行语句：
@@ -41,10 +41,24 @@ SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='数据库�
 然后就可以删除数据库了
 ```
 
-# 4.修改表的序列为id最大值
+# 修改表的序列为id最大值
 
 ```bash
 SELECT setval('表名_id_seq', (SELECT MAX(id) FROM 表名));
 ```
 
+# 查询表结构
 
+```sql
+SELECT 
+	COLUMN_NAME AS 列名,
+	DATA_TYPE AS 字段类型,
+	CHARACTER_MAXIMUM_LENGTH AS 长度,
+	IS_NULLABLE AS 是否为空,
+	COLUMN_DEFAULT AS 默认值 
+FROM
+	INFORMATION_SCHEMA.COLUMNS 
+WHERE
+	table_schema = 'public' 
+	AND TABLE_NAME = '表名';
+```
