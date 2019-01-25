@@ -895,6 +895,243 @@ ObjectMapper objectMapper = new ObjectMapper();
 List<Car> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>(){});
 ```
 
+# `ObjectMapper`的基本用法
+
+## `ObjectMapper`可以通过`configure`方法设置全局序列化/反序列化行为，例如：
+
+```java
+objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+```
+
+常用的一些设置：
+
+1. `DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES`：忽略不识别的字段
+2. `DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES`：允许使用属性的默认值进行反序列化
+3. `DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS`：允许将枚举值序列化/反序列化为数字
+
+## 注册自定义序列化/反序列化程序
+
+```java
+//创建一个模块
+SimpleModule module = new SimpleModule("CustomCarSerializer", new Version(1, 0, 0, null, null, null));
+//将自定义序列化/反序列化程序注册到模块
+module.addSerializer(Car.class, new CustomCarSerializer());
+//module.addDeserializer(Car.class, new CustomCarDeserializer());
+//注册模块
+mapper.registerModule(module);
+```
+
+## 处理日期格式
+
+```java
+DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
+mapper.setDateFormat(df);
+```
+
+## 处理集合
+
+### 处理数组
+
+```java
+String jsonCarArray = "[{ \"color\" : \"Black\", \"type\" : \"BMW\" }, { \"color\" : \"Red\", \"type\" : \"FIAT\" }]";
+ObjectMapper objectMapper = new ObjectMapper();
+objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
+Car[] cars = objectMapper.readValue(jsonCarArray, Car[].class);
+```
+
+### 处理集合
+
+```java
+String jsonCarArray = "[{ \"color\" : \"Black\", \"type\" : \"BMW\" }, { \"color\" : \"Red\", \"type\" : \"FIAT\" }]";
+ObjectMapper objectMapper = new ObjectMapper();
+List<Car> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>(){});
+```
+
+# Jackson注解扩展
+
+## @JsonIdentityReference
+> 使用指定的标识来序列化Java对象，而不是序列化整个对象
+
+例如：
+
+```java
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityReference(alwaysAsId = true)
+public class BeanWithoutIdentityReference {
+    private int id;
+    private String name;
+}
+```
+
+将被序列化为：
+
+```json
+1
+```
+
+## @JsonAppend
+> 运行在序列化时添加额外的属性
+
+```java
+@JsonAppend(attrs = { 
+  @JsonAppend.Attr(value = "version") 
+})
+public class BeanWithAppend {
+    private int id;
+    private String name;
+ 
+    // constructor, getters and setters
+}
+```
+
+例如，我们在序列化时手动增加`version = 1.0`的属性
+
+```java
+BeanWithAppend bean = new BeanWithAppend(2, "Bean With Append Annotation");
+ObjectWriter writer = mapper.writerFor(BeanWithAppend.class).withAttribute("version", "1.0");
+String jsonString = writer.writeValueAsString(bean);
+```
+
+序列化结果：
+
+```json
+{
+    "id": 2,
+    "name": "Bean With Append Annotation",
+    "version": "1.0"
+}
+```
+
+## @JsonNaming
+> 指定序列化的时候属性命名方式
+
+有四种选项：
+
+- `KEBAB_CASE`
+> 由连字符分割，例如：kebab-case
+- `LOWER_CASE`
+> 所有的字母都转换为小写，例如：lowercase
+- `SNAKE_CASE`
+> 所有的字母都转换为小写，并且由下划线分割，例如：snake_case
+- `UPPER_CAMEL_CASE`
+> 所有名称元素，包括第一个元素，都以大写字母开头，后跟小写字母，并且没有分隔符，例如：UpperCamelCase
+
+使用举例：
+
+```java
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+public class NamingBean {
+    private int id;
+    private String beanName;
+}
+```
+
+## `@JsonPropertyDescription`
+> 用于生成字段的描述信息
+
+例如，有下面一个实体：
+
+```java
+public class PropertyDescriptionBean {
+    private int id;
+    @JsonPropertyDescription("This is a description of the name property")
+    private String name;
+}
+```
+
+我们可以输出该类的信息：
+
+```java
+SchemaFactoryWrapper wrapper = new SchemaFactoryWrapper();
+mapper.acceptJsonFormatVisitor(PropertyDescriptionBean.class, wrapper);
+JsonSchema jsonSchema = wrapper.finalSchema();
+String jsonString = mapper.writeValueAsString(jsonSchema);
+```
+
+结果如下：
+
+```json
+{
+    "type": "object",
+    "id": "urn:jsonschema:com:baeldung:jackson:annotation:extra:PropertyDescriptionBean",
+    "properties": 
+    {
+        "name": 
+        {
+            "type": "string",
+            "description": "This is a description of the name property"
+        },
+ 
+        "id": 
+        {
+            "type": "integer"
+        }
+    }
+}
+```
+
+## @JsonPOJOBuilder
+> 自定义生成器类，来控制json的反序列化行为
+
+`@JsonPOJOBuilder`有两个属性：
+
+- `buildMethodName`
+> 将JSON字段绑定到bean的属性后，用于实例化预期bean的无参构造的名称。默认名称为`build`。
+- `withPrefix`
+> 用于自动检测JSON和bean属性之间匹配的名称前缀。默认前缀为`with`。
+
+假设我们要反序列化的json如下：
+
+```json
+{
+    "id": 5,
+    "name": "POJO Builder Bean"
+}
+```
+
+对应的pojo：
+
+```java
+@JsonDeserialize(builder = BeanBuilder.class)
+public class POJOBuilderBean {
+    private int identity;
+    private String beanName;
+ 
+    // constructor, getters and setters
+}
+```
+
+对应的生成器：
+
+```java
+@JsonPOJOBuilder(buildMethodName = "createBean", withPrefix = "construct")
+public class BeanBuilder {
+    private int idValue;
+    private String nameValue;
+ 
+    public BeanBuilder constructId(int id) {
+        idValue = id;
+        return this;
+    }
+ 
+    public BeanBuilder constructName(String name) {
+        nameValue = name;
+        return this;
+    }
+ 
+    public POJOBuilderBean createBean() {
+        return new POJOBuilderBean(idValue, nameValue);
+    }
+}
+```
+
+使用`ObjectMapper`反序列化：
+
+```java
+String jsonString = "{\"id\":5,\"name\":\"POJO Builder Bean\"}";
+POJOBuilderBean bean = mapper.readValue(jsonString, POJOBuilderBean.class);
+```
+
 ---
 👉 [代码仓库](https://github.com/gcdd1993/Jackson-Guide-With-Samples)
 👉 [Jackson JSON Tutorial](https://www.baeldung.com/jackson)
