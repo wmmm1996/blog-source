@@ -8,7 +8,7 @@ subtitle: "梦想总是要有的，万一实现了呢"
 description: 温故而知新
 keywords:
 author: GCdd
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -39,10 +39,16 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
+  enable: false
   line_number: true
   auto_detect: false
   tab_replace:
+
+prism_plugin:
+  mode: 'preprocess'    # realtime/preprocess
+  theme: 'tomorrow'
+  line_number: false    # default false
+  custom_css:
   
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -73,14 +79,17 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: matery
 
 # Local Search
 search:
   path: search.xml
   field: post
-  format: html
-  limit: 10000
+
+# chinese link -> pinyin link
+permalink_pinyin:
+  enable: true
+  separator: '-'
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
