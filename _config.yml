@@ -7,7 +7,7 @@ title: 技术成就未来
 subtitle: "教程长期更新，添加收藏夹不迷路~~"
 description: 技术教程专卖
 keywords:
-author: GCdd
+author: 技术教程专卖
 language: zh-Hans
 timezone:
 
@@ -73,7 +73,33 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: indigo
+
+# https://github.com/hexojs/hexo-generator-feed
+feed:
+  type: atom
+  path: atom.xml
+  limit: 0
+
+# https://github.com/alexbruno/hexo-generator-json-content
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true
 
 # Local Search
 search:
