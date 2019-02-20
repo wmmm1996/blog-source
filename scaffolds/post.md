@@ -1,5 +1,5 @@
 ---
-title: 🔥🔥🔥【3RMB】{{ title }}
+title: 【3RMB】{{ title }}
 date: {{ date }}
 tags:
 categories:
@@ -7,15 +7,16 @@ categories:
 # 课程介绍
 > 
 
-原价图片
+👉 [教程预览](随便选一个教程预览)
 
 <!--more-->
+
+原价图片
 
 👉 [去慕课网查看详情](https://coding.imooc.com/class/177.html)
 
 # 网盘截图
 两张
-👉 [教程预览](随便选一个教程预览)
 
 # 获取资源
 - [点击购买](商品链接)
