@@ -17,4 +17,5 @@ install:
 script:
   - hexo clean
   - hexo g
+  - sed -i "s/GH_TOKEN/${GH_TOKEN}/g" ./_config.yml
   - hexo d
