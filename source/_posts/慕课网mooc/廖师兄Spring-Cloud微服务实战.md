@@ -3,9 +3,8 @@ title: 🔥🔥🔥【3RMB】廖师兄Spring Cloud微服务实战
 date: 2019-02-20 20:01:03
 tags:
  - Spring Cloud
- - 慕课网
 categories:
- - 慕课网mooc
+ - 慕课网
 ---
 # 课程介绍
 > 微服务架构已是当下最热门的话题，许多公司都在从传统架构系统向微服务转化。本门课程以点餐业务为例，使用Spring Boot2.x 配合SpringCloud核心组件，剖析微服务原理。并利用Rancher+Docker实现容器编排，SpringCloud Sleuth集成Zipkin实现分布式链路追踪，带你领略最潮的微服务实现方案
