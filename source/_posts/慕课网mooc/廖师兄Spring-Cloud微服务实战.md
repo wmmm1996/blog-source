@@ -1,5 +1,5 @@
 ---
-title: 【3RMB】廖师兄Spring Cloud微服务实战
+title: 🔥🔥🔥【3RMB】廖师兄Spring Cloud微服务实战
 date: 2019-02-20 20:01:03
 tags:
  - Spring Cloud
@@ -12,7 +12,7 @@ categories:
 
 ![](https://i.loli.net/2019/02/20/5c6d450c4a7c7.png)
 
-<!-- more -->
+<!--more-->
 
 👉 [去慕课网查看详情](https://coding.imooc.com/class/187.html)
 
