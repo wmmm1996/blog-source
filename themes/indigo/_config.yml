@@ -72,7 +72,7 @@ toc:
   list_number: true  # 是否显示数字排序
 
 # 文章页留言内容，hexo中所有变量及辅助函数等均可调用，具体请查阅 hexo.io
-postMessage: 🔥🔥🔥 去<a href="http://t.cn/EVUeCdA">教程仓库</a>获取更多超值教程！🔥🔥🔥
+postMessage: 🔥🔥🔥 去<a href="http://t.cn/EVUeCdA">教程仓库</a>获取更多超值教程！🔥🔥🔥<br>👉👉👉 亲~购买之前记得点击教程预览，以防购买错误哦！</br>
 
 # 站长统计，如要开启，输入CNZZ站点id，如 cnzz: 1255152447
 cnzz: false
