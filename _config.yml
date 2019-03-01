@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: IT教程工厂
-subtitle: "IT成就梦想"
-description: 如果未找到您想要的教程，请发送邮件联系站长添加！
+title: Wm'Blog
+subtitle: "UI"
+description: UI
 keywords:
-author: 技术教程专卖
+author: UI
 language: zh-Hans
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://gcdd1993.github.io
+url: https://wmmm1996.github.io
 root: /
 permalink: :title/
 permalink_defaults:
@@ -73,33 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: indigo
-
-# https://github.com/hexojs/hexo-generator-feed
-feed:
-  type: atom
-  path: atom.xml
-  limit: 0
-
-# https://github.com/alexbruno/hexo-generator-json-content
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: true
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: false
-    tags: true
+theme: next
 
 # Local Search
 search:
@@ -112,5 +86,5 @@ search:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://GH_TOKEN@github.com/gcdd1993/gcdd1993.github.io.git
+  repository: https://github.com/wmmm1996/wmmm1996.github.io.git
   branch: master
